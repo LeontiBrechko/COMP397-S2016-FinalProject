@@ -50,7 +50,7 @@ var scenes;
             // add the start button
             this._startButton = new objects.Button("startButton", 320, 340, true);
             this.addChild(this._startButton);
-            this._returnButton = new objects.Button("returnButton", 320, 440, true);
+            this._returnButton = new objects.Button("returnButton", 320, 390, true);
             this.addChild(this._returnButton);
             // Start button event listener
             this._startButton.on("click", this._startButtonClick, this);

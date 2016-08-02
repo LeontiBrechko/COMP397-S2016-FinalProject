@@ -11,11 +11,12 @@
 module scenes {
     export class Over extends objects.Scene {
         //  PRIVATE INSTANCE VARIABLES
-        private _space:objects.Space;
-        private _gameOverLabel:objects.Label;
-        private _finalScoreLabel:objects.Label;
-        private _restartButton:objects.Button;
-        private _restartLevelButton:objects.Button;
+        private _space: objects.Space;
+        private _gameOverLabel: objects.Label;
+        private _finalScoreLabel: objects.Label;
+        private _restartButton: objects.Button;
+        private _restartLevelButton: objects.Button;
+        private _exitButton: objects.Button;
 
         /**
          * Creates an instance of Menu.
@@ -28,7 +29,7 @@ module scenes {
         /**
          *
          */
-        public Start():void {
+        public Start(): void {
             this._space = new objects.Space("space");
             this.addChild(this._space);
             // Add Menu Label
@@ -46,7 +47,7 @@ module scenes {
 
             // add the restart button
             this._restartButton = new objects.Button(
-                "restartButton", 320, 440, true
+                "restartButton", 320, 390, true
             );
             this._restartButton.on("click", this._restartButtonClick, this);
             this.addChild(this._restartButton);
@@ -58,18 +59,27 @@ module scenes {
             this._restartLevelButton.on("click", this._restartLevelButtonClick, this);
             this.addChild(this._restartLevelButton);
 
+            // add the exit button
+            this._exitButton = new objects.Button(
+                "exitButton", 320, 440, true
+            );
+            this.addChild(this._exitButton);
+
+            // Exit button event listener
+            this._exitButton.on("click", this._exitButtonClick, this);
+
             // add this scene to the global scene container
             core.stage.addChild(this);
         }
 
-        public Update():void {
+        public Update(): void {
             this._space.update();
             this._gameOverLabel.alpha == 1 ? this._gameOverLabel.alpha = 0 : this._gameOverLabel.alpha = 1;
             // scene updates happen here...
         }
 
         // EVENT HANDLERS ++++++++++++++++
-        private _restartButtonClick(event:createjs.MouseEvent):void {
+        private _restartButtonClick(event: createjs.MouseEvent): void {
             // Switch the scene
             core.currentLives = core.startingLives;
             core.score = 0;
@@ -77,7 +87,7 @@ module scenes {
             core.changeScene();
         }
 
-        private _restartLevelButtonClick(event:createjs.MouseEvent):void {
+        private _restartLevelButtonClick(event: createjs.MouseEvent): void {
             let currentLevel = core.play.levelNumber;
             core.currentLives = core.startingLives;
             core.score = 0;
@@ -86,6 +96,12 @@ module scenes {
             core.play.levelNumber = currentLevel;
             createjs.Sound.stop();
             core.play.ChangeLevel();
+        }
+
+        private _exitButtonClick(event: createjs.MouseEvent): void {
+            // Switch the scene
+            core.scene = config.Scene.EXIT;
+            core.changeScene();
         }
     }
 }

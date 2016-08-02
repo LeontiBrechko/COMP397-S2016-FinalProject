@@ -22,6 +22,7 @@ var config;
         Scene.PLAY = 1;
         Scene.OVER = 2;
         Scene.INSTRUCTIONS = 3;
+        Scene.EXIT = 4;
         return Scene;
     }());
     config.Scene = Scene;

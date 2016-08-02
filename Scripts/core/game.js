@@ -22,6 +22,7 @@ var core;
     // declare scene variables
     var currentScene;
     var menu;
+    var exit;
     var over;
     var instructions;
     // asset manifest for images and sounds
@@ -29,6 +30,7 @@ var core;
         { id: "startButton", src: "Assets/images/startButton.png" },
         { id: "instructionsButton", src: "Assets/images/instructionsButton.png" },
         { id: "restartButton", src: "Assets/images/restartButton.png" },
+        { id: "exitButton", src: "Assets/images/exitButton.png" },
         { id: "returnButton", src: "Assets/images/returnButton.png" },
         { id: "planet", src: "Assets/images/planet.png" },
         { id: "infectedPlanet", src: "Assets/images/infectedPlanet.png" },
@@ -115,6 +117,12 @@ var core;
                 core.stage.removeAllChildren();
                 instructions = new scenes.Instructions();
                 currentScene = instructions;
+                break;
+            // Shot the EXIT Scene
+            case config.Scene.EXIT:
+                core.stage.removeAllChildren();
+                exit = new scenes.Exit();
+                currentScene = exit;
                 break;
         }
     }

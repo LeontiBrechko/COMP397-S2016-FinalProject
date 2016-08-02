@@ -62,7 +62,7 @@ module scenes {
             this.addChild(this._startButton);
 
             this._returnButton = new objects.Button(
-                "returnButton", 320, 440, true
+                "returnButton", 320, 390, true
             );
             this.addChild(this._returnButton);
 

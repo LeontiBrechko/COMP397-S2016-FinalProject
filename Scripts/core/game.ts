@@ -36,6 +36,7 @@ namespace core {
     export let scene:number;
 
     let menu:scenes.Menu;
+    let exit:scenes.Exit;
     let over:scenes.Over;
     export let play:scenes.Play;
     let instructions:scenes.Instructions;
@@ -46,6 +47,7 @@ namespace core {
         {id: "startButton", src: "Assets/images/startButton.png"},
         {id: "instructionsButton", src: "Assets/images/instructionsButton.png"},
         {id: "restartButton", src: "Assets/images/restartButton.png"},
+        {id: "exitButton", src: "Assets/images/exitButton.png"},
         {id: "returnButton", src: "Assets/images/returnButton.png"},
         {id: "planet", src: "Assets/images/planet.png"},
         {id: "infectedPlanet", src: "Assets/images/infectedPlanet.png"},
@@ -140,6 +142,12 @@ namespace core {
                 stage.removeAllChildren();
                 instructions = new scenes.Instructions();
                 currentScene = instructions;
+                break;
+            // Shot the EXIT Scene
+            case config.Scene.EXIT:
+                stage.removeAllChildren();
+                exit = new scenes.Exit();
+                currentScene = exit;
                 break;
         }
     }
