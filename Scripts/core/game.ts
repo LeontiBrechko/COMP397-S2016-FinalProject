@@ -28,7 +28,8 @@ namespace core {
     // export let highScore:number = 0;
     export let startingLives:number = 5;
     export let currentLives:number = startingLives;
-    
+    export let fuelLevel:number = 5;
+    export let gunBullets:number = 0;
     let startButton:objects.Button; // reference to our button class
 
     // declare scene variables
@@ -53,6 +54,8 @@ namespace core {
         {id: "infectedPlanet", src: "Assets/images/infectedPlanet.png"},
         {id: "zombie", src: "Assets/images/zombie.png"},
         {id: "chargedCloud", src: "Assets/images/chargedCloud.png"},
+        {id: "fuelBox", src: "Assets/images/fuel.png"},
+        {id: "gunBox", src: "Assets/images/gun.png"},
         {id: "space", src: "Assets/images/space.png"},
         {id: "live", src: "Assets/images/live.png"},
         {id: "baaaa", src: "Assets/audio/baaaa.wav"},

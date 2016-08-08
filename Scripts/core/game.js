@@ -18,6 +18,8 @@ var core;
     // export let highScore:number = 0;
     core.startingLives = 5;
     core.currentLives = core.startingLives;
+    core.fuelLevel = 5;
+    core.gunBullets = 0;
     var startButton; // reference to our button class
     // declare scene variables
     var currentScene;
@@ -36,6 +38,8 @@ var core;
         { id: "infectedPlanet", src: "Assets/images/infectedPlanet.png" },
         { id: "zombie", src: "Assets/images/zombie.png" },
         { id: "chargedCloud", src: "Assets/images/chargedCloud.png" },
+        { id: "fuelBox", src: "Assets/images/fuel.png" },
+        { id: "gunBox", src: "Assets/images/gun.png" },
         { id: "space", src: "Assets/images/space.png" },
         { id: "live", src: "Assets/images/live.png" },
         { id: "baaaa", src: "Assets/audio/baaaa.wav" },

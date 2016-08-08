@@ -21,8 +21,8 @@ var objects;
      * @class ChargedCloud
      * @extends {createjs.Bitmap}
      */
-    var ChargedCloud = (function (_super) {
-        __extends(ChargedCloud, _super);
+    var FuelBox = (function (_super) {
+        __extends(FuelBox, _super);
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of ChargedCloud.
@@ -30,11 +30,11 @@ var objects;
          * @constructor
          * @param {string} imageString
          */
-        function ChargedCloud(imageString) {
+        function FuelBox(imageString) {
             _super.call(this, imageString);
             this.start();
         }
-        Object.defineProperty(ChargedCloud.prototype, "dy", {
+        Object.defineProperty(FuelBox.prototype, "dy", {
             // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
             get: function () {
                 return this._dy;
@@ -45,7 +45,7 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(ChargedCloud.prototype, "dx", {
+        Object.defineProperty(FuelBox.prototype, "dx", {
             get: function () {
                 return this._dx;
             },
@@ -57,21 +57,13 @@ var objects;
         });
         // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++
         /**
-         * Resets the object outside of the viewport
-         * and sets the x and y locations
-         *
-         * @private
-         * @method _reset
-         * @returns {void}
-         */
-        /**
          * This method checks if the object has reached its boundaries
          *
          * @private
          * @method _checkBounds
          * @returns {void}
          */
-        ChargedCloud.prototype._checkBounds = function () {
+        FuelBox.prototype._checkBounds = function () {
             if (this.x <= (0 - this.width)) {
                 this.reset();
             }
@@ -85,17 +77,24 @@ var objects;
          * @method start
          * @returns {void}
          */
-        ChargedCloud.prototype.start = function () {
+        FuelBox.prototype.start = function () {
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
             this.reset();
         };
-        ChargedCloud.prototype.reset = function () {
-            this._dx = -Math.floor((Math.random() * 5) + 5); // horizontal speed
+        /**
+        * Resets the object outside of the viewport
+        * and sets the x and y locations
+        *
+        * @private
+        * @method _reset
+        * @returns {void}
+        */
+        FuelBox.prototype.reset = function () {
+            this._dx = -Math.floor((Math.random() * 5) + 7); // horizontal speed
             this._dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
-            this.rotation = Math.floor(Math.random() * 360);
             // get a random y location
             this.y = Math.floor((Math.random() * (480 - (this.width * 0.5))) + (this.width * 0.5));
             this.x = 640 + this.width;
@@ -108,16 +107,15 @@ var objects;
          * @method update
          * @returns {void}
          */
-        ChargedCloud.prototype.update = function () {
+        FuelBox.prototype.update = function () {
             this.y += this._dy;
             this.x += this._dx;
             this._checkBounds();
             this.position.x = this.x;
             this.position.y = this.y;
-            this.alpha == 1 ? this.alpha = 0 : this.alpha = 1;
         };
-        return ChargedCloud;
+        return FuelBox;
     }(objects.GameObject));
-    objects.ChargedCloud = ChargedCloud;
+    objects.FuelBox = FuelBox;
 })(objects || (objects = {}));
-//# sourceMappingURL=chargedCloud.js.map
+//# sourceMappingURL=fuelBox.js.map

@@ -88,7 +88,7 @@ var levels;
                 core.changeScene();
             }
             // stub test on score
-            if (core.score >= 200) {
+            if (core.score >= 300) {
                 createjs.Sound.stop();
                 core.play.levelNumber++;
                 core.play.ChangeLevel();

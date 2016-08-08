@@ -19,20 +19,116 @@ var levels;
         function Level2() {
             _super.call(this);
         }
+        Level2.prototype._updateScoreBoard = function () {
+            for (var i = core.startingLives - 1; i > core.currentLives - 1; i--) {
+                this._liveIcons[i].visible = false;
+            }
+            this._scoreLabel.text = "Score: " + core.score;
+            this._fuelLevelLabel.text = "Fuel Level:" + core.fuelLevel + "/5";
+            this._bulletLabel.text = "Bullets:" + core.gunBullets;
+        };
         Level2.prototype.InitializeLevel = function () {
-            // stub initialization
-            this._stubLabel = new objects.Label("This is level 2 stub.", "40px", "Broadway", "#7200ff", 320, 140);
-            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 200, true);
+            this._timer = 0;
+            this._levelTimer = 0;
+            core.currentLives = 1;
+            // ocean object
+            this._space = new objects.Space("space");
+            this.addChild(this._space);
+            // island object
+            // player object
+            this._player = new objects.Player("zombie");
+            this.addChild(this._player);
+            this._themeSound = createjs.Sound.play("main_theme");
+            this._themeSound.loop = -1;
+            // charged cloud array
+            this._fuelBoxes = new Array();
+            for (var i = 0; i < 2; i++) {
+                this._fuelBoxes.push(new objects.FuelBox("fuelBox"));
+                this.addChild(this._fuelBoxes[i]);
+            }
+            this._gunBoxes = new Array();
+            for (var i = 0; i < 2; i++) {
+                this._gunBoxes.push(new objects.GunBox("gunBox"));
+                this.addChild(this._gunBoxes[i]);
+            }
+            // include a collision managers
+            this._collision = new managers.Collision();
+            // lives array
+            this._liveIcons = new Array();
+            for (var i = 0; i < core.startingLives; i++) {
+                this._liveIcons.push(new createjs.Bitmap(core.assets.getResult("live")));
+                this._liveIcons[i].x = 10 + i * this._liveIcons[0].getBounds().width;
+                this._liveIcons[i].y = 5;
+                this.addChild(this._liveIcons[i]);
+            }
+            // add core label
+            this._scoreLabel = new objects.Label("Score: " + core.score, "40px", "Broadway", "#7200ff", 620, 5, false);
+            this._scoreLabel.textAlign = "right";
+            this.addChild(this._scoreLabel);
+            this._fuelLevelLabel = new objects.Label("Fuel Level: " + core.fuelLevel + "/5", "40px", "Broadway", "#7200ff", 620, 35, false);
+            this._fuelLevelLabel.textAlign = "right";
+            this.addChild(this._fuelLevelLabel);
+            this._bulletLabel = new objects.Label("Fuel Level: " + core.gunBullets, "40px", "Broadway", "#7200ff", 620, 65, false);
+            this._bulletLabel.textAlign = "right";
+            this.addChild(this._bulletLabel);
+            // add stub next level button
+            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 440, true);
             this._stubNextLevelButton.on("click", this._nextLevel, this);
-            this._stubGameOverButton = new objects.Button("gameOverStub", 320, 300, true);
-            this._stubGameOverButton.on("click", this._gameOver, this);
-            this.addChild(this._stubLabel);
             this.addChild(this._stubNextLevelButton);
-            this.addChild(this._stubGameOverButton);
             // add this scene to the global scene container
             core.stage.addChild(this);
         };
         Level2.prototype.UpdateLevel = function () {
+            var _this = this;
+            this._space.update();
+            this._player.update();
+            this._fuelBoxes.forEach(function (asteroid) {
+                asteroid.update();
+                _this._collision.check(_this._player, asteroid);
+                _this._fuelBoxes.forEach(function (anotherAsteroid) {
+                    if (anotherAsteroid != asteroid &&
+                        asteroid.isColliding === anotherAsteroid.isColliding) {
+                        _this._collision.check(asteroid, anotherAsteroid);
+                    }
+                });
+            });
+            this._gunBoxes.forEach(function (asteroid) {
+                asteroid.update();
+                _this._collision.check(_this._player, asteroid);
+                _this._gunBoxes.forEach(function (anotherAsteroid) {
+                    if (anotherAsteroid != asteroid &&
+                        asteroid.isColliding === anotherAsteroid.isColliding) {
+                        _this._collision.check(asteroid, anotherAsteroid);
+                    }
+                });
+            });
+            this._updateScoreBoard();
+            if (core.currentLives < 1 || core.fuelLevel < 1) {
+                createjs.Sound.stop();
+                createjs.Sound.play("over");
+                core.scene = config.Scene.OVER;
+                core.changeScene();
+            }
+            // stub test on score
+            if (core.score >= 500) {
+                createjs.Sound.stop();
+                core.play.levelNumber++;
+                core.play.ChangeLevel();
+            }
+            if (this._timer >= 120) {
+                this._timer = 0;
+                if (core.fuelLevel > 0)
+                    core.fuelLevel--;
+            }
+            if (this._levelTimer >= 600) {
+                this._levelTimer = 0;
+                console.log("level 2 is done");
+                createjs.Sound.stop();
+                core.play.levelNumber++;
+                core.play.ChangeLevel();
+            }
+            this._levelTimer++;
+            this._timer++;
         };
         // EVENT HANDLERS ++++++++++++++++
         /**
@@ -45,18 +141,6 @@ var levels;
             createjs.Sound.stop();
             core.play.levelNumber++;
             core.play.ChangeLevel();
-        };
-        /**
-         * Simulates game over for this level
-         *
-         * @param event
-         * @private
-         */
-        Level2.prototype._gameOver = function (event) {
-            createjs.Sound.stop();
-            createjs.Sound.play("over");
-            core.scene = config.Scene.OVER;
-            core.changeScene();
         };
         return Level2;
     }(objects.Level));
