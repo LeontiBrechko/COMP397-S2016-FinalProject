@@ -80,16 +80,16 @@ module levels {
             }
 
             // add core label
-            this._scoreLabel = new objects.Label("Score: " + core.score, "40px", "Broadway", "#7200ff", 620, 5, false);
+            this._scoreLabel = new objects.Label("Score: " + core.score, "40px", "BroadwayFont", "#7200ff", 620, 5, false);
             this._scoreLabel.textAlign = "right";
             this.addChild(this._scoreLabel);
 
 
-            this._fuelLevelLabel = new objects.Label("Fuel Level: " + core.fuelLevel + "/5", "40px", "Broadway", "#7200ff", 620, 35, false);
+            this._fuelLevelLabel = new objects.Label("Fuel Level: " + core.fuelLevel + "/5", "40px", "BroadwayFont", "#7200ff", 620, 35, false);
             this._fuelLevelLabel.textAlign = "right";
             this.addChild(this._fuelLevelLabel);
 
-            this._bulletLabel = new objects.Label("Fuel Level: " + core.gunBullets, "40px", "Broadway", "#7200ff", 620, 65, false);
+            this._bulletLabel = new objects.Label("Fuel Level: " + core.gunBullets, "40px", "BroadwayFont", "#7200ff", 620, 65, false);
             this._bulletLabel.textAlign = "right";
             this.addChild(this._bulletLabel);
 

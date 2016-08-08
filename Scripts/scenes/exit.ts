@@ -31,7 +31,7 @@ module scenes {
 
             //add the Thank You label
             this._thankYouLabel = new objects.Label(
-                "THANK YOU FOR PLAYING!", "40px", "Broadway", "#7200ff",
+                "THANK YOU FOR PLAYING!", "40px", "BroadwayFont", "#7200ff",
                 320, 240, true
             );
 

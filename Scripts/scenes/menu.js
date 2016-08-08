@@ -30,7 +30,7 @@ var scenes;
             this._space = new objects.Space("space");
             this.addChild(this._space);
             // Add Menu Label
-            this._menuLabel = new objects.Label("FLYING DEAD", "80px", "Broadway", "#7200ff", 320, 140);
+            this._menuLabel = new objects.Label("FLYING DEAD", "80px", "BroadwayFont", "#7200ff", 315, 140);
             this.addChild(this._menuLabel);
             // add the start button
             this._startButton = new objects.Button("startButton", 320, 340, true);

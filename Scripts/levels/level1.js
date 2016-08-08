@@ -54,7 +54,7 @@ var levels;
                 this.addChild(this._liveIcons[i]);
             }
             // add core label
-            this._scoreLabel = new objects.Label("Score: " + core.score, "40px", "Broadway", "#7200ff", 450, 5, false);
+            this._scoreLabel = new objects.Label("Score: " + core.score, "40px", "BroadwayFont", "#7200ff", 450, 5, false);
             this._scoreLabel.textAlign = "center";
             this.addChild(this._scoreLabel);
             // add stub next level button

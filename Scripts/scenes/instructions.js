@@ -40,10 +40,10 @@ var scenes;
             this._space = new objects.Space("space");
             this.addChild(this._space);
             for (var line = 0; line < instructionsArray.length; line++) {
-                gameInstructions[line] = new createjs.Text(instructionsArray[line], "Broadway");
+                gameInstructions[line] = new createjs.Text(instructionsArray[line], "BroadwayFont");
                 gameInstructions[line].x = 10;
                 gameInstructions[line].y = 20 + (2 * line);
-                this.addChild(new objects.Label(instructionsArray[line], "22px", "Broadway", "#7200ff", 300, 40 * line + 40, true));
+                this.addChild(new objects.Label(instructionsArray[line], "22px", "BroadwayFont", "#7200ff", 300, 40 * line + 40, true));
             }
             // Add Menu Label
             this.addChild(this._instructionsLabel);

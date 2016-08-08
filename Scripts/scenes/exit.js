@@ -30,7 +30,7 @@ var scenes;
             this._space = new objects.Space("space");
             this.addChild(this._space);
             //add the Thank You label
-            this._thankYouLabel = new objects.Label("THANK YOU FOR PLAYING!", "40px", "Broadway", "#7200ff", 320, 240, true);
+            this._thankYouLabel = new objects.Label("THANK YOU FOR PLAYING!", "40px", "BroadwayFont", "#7200ff", 320, 240, true);
             this.addChild(this._thankYouLabel);
             core.stage.addChild(this);
         };

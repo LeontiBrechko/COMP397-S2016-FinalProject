@@ -34,13 +34,13 @@ module scenes {
             this.addChild(this._space);
             // Add Menu Label
             this._gameOverLabel = new objects.Label(
-                "GAME OVER", "40px", "Broadway", "#7200ff",
+                "GAME OVER", "40px", "BroadwayFont", "#7200ff",
                 320, 140, true
             );
             this.addChild(this._gameOverLabel);
 
             this._finalScoreLabel = new objects.Label(
-                "FINAL SCORE: " + core.score, "40px", "Broadway", "#7200ff",
+                "FINAL SCORE: " + core.score, "40px", "BroadwayFont", "#7200ff",
                 320, 240, true
             );
             this.addChild(this._finalScoreLabel);

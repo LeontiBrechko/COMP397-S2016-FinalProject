@@ -21,7 +21,7 @@ var levels;
         }
         Level3.prototype.InitializeLevel = function () {
             // stub initialization
-            this._stubLabel = new objects.Label("This is level 3 stub.", "40px", "Broadway", "#7200ff", 320, 140);
+            this._stubLabel = new objects.Label("This is level 3 stub.", "40px", "BroadwayFont", "#7200ff", 320, 140);
             this._stubGameOverButton = new objects.Button("gameOverStub", 320, 300, true);
             this._stubGameOverButton.on("click", this._gameOver, this);
             this.addChild(this._stubLabel);

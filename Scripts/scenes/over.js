@@ -30,9 +30,9 @@ var scenes;
             this._space = new objects.Space("space");
             this.addChild(this._space);
             // Add Menu Label
-            this._gameOverLabel = new objects.Label("GAME OVER", "40px", "Broadway", "#7200ff", 320, 140, true);
+            this._gameOverLabel = new objects.Label("GAME OVER", "40px", "BroadwayFont", "#7200ff", 320, 140, true);
             this.addChild(this._gameOverLabel);
-            this._finalScoreLabel = new objects.Label("FINAL SCORE: " + core.score, "40px", "Broadway", "#7200ff", 320, 240, true);
+            this._finalScoreLabel = new objects.Label("FINAL SCORE: " + core.score, "40px", "BroadwayFont", "#7200ff", 320, 240, true);
             this.addChild(this._finalScoreLabel);
             // add the restart button
             this._restartButton = new objects.Button("restartButton", 320, 390, true);
