@@ -58,6 +58,18 @@ var managers;
                             core.currentLives -= 1;
                             createjs.Sound.play("explosion");
                         }
+                        if (object2.name === "fuelBox") {
+                            if (core.fuelLevel < 5)
+                                core.fuelLevel++;
+                            object2.reset();
+                            createjs.Sound.play("explosion");
+                        }
+                        if (object2.name === "gunBox") {
+                            core.gunBullets += 5;
+                            object2.reset();
+                            //ToDo: change the sound
+                            createjs.Sound.play("explosion");
+                        }
                         // if zombie collides with island
                         if (object2.name === "planet") {
                             // TO-DO: change to asset load

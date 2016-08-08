@@ -18,29 +18,37 @@ var core;
     // export let highScore:number = 0;
     core.startingLives = 5;
     core.currentLives = core.startingLives;
+    core.fuelLevel = 5;
+    core.gunBullets = 0;
     var startButton; // reference to our button class
     // declare scene variables
     var currentScene;
     var menu;
+    var exit;
     var over;
-    var play;
     var instructions;
     // asset manifest for images and sounds
     var assetData = [
         { id: "startButton", src: "Assets/images/startButton.png" },
         { id: "instructionsButton", src: "Assets/images/instructionsButton.png" },
         { id: "restartButton", src: "Assets/images/restartButton.png" },
+        { id: "exitButton", src: "Assets/images/exitButton.png" },
         { id: "returnButton", src: "Assets/images/returnButton.png" },
         { id: "planet", src: "Assets/images/planet.png" },
         { id: "infectedPlanet", src: "Assets/images/infectedPlanet.png" },
         { id: "zombie", src: "Assets/images/zombie.png" },
         { id: "chargedCloud", src: "Assets/images/chargedCloud.png" },
+        { id: "fuelBox", src: "Assets/images/fuel.png" },
+        { id: "gunBox", src: "Assets/images/gun.png" },
         { id: "space", src: "Assets/images/space.png" },
         { id: "live", src: "Assets/images/live.png" },
         { id: "baaaa", src: "Assets/audio/baaaa.wav" },
         { id: "explosion", src: "Assets/audio/explosion.wav" },
         { id: "main_theme", src: "Assets/audio/main_theme.wav" },
-        { id: "over", src: "Assets/audio/over.wav" }
+        { id: "over", src: "Assets/audio/over.wav" },
+        { id: "gameOverStub", src: "Assets/images/gameOverStub.png" },
+        { id: "nextLevelStub", src: "Assets/images/nextLevelStub.png" },
+        { id: "restartLevelButton", src: "Assets/images/restartLevelButton.png" }
     ];
     /**
      * This method preloads assets for the game
@@ -99,8 +107,8 @@ var core;
             // Show the PLAY Scene
             case config.Scene.PLAY:
                 core.stage.removeAllChildren();
-                play = new scenes.Play();
-                currentScene = play;
+                core.play = new scenes.Play();
+                currentScene = core.play;
                 break;
             // Show the GAME OVER Scene
             case config.Scene.OVER:
@@ -113,6 +121,12 @@ var core;
                 core.stage.removeAllChildren();
                 instructions = new scenes.Instructions();
                 currentScene = instructions;
+                break;
+            // Shot the EXIT Scene
+            case config.Scene.EXIT:
+                core.stage.removeAllChildren();
+                exit = new scenes.Exit();
+                currentScene = exit;
                 break;
         }
     }

@@ -15,6 +15,8 @@ module scenes {
         private _gameOverLabel: objects.Label;
         private _finalScoreLabel: objects.Label;
         private _restartButton: objects.Button;
+        private _restartLevelButton: objects.Button;
+        private _exitButton: objects.Button;
 
         /**
          * Creates an instance of Menu.
@@ -43,14 +45,28 @@ module scenes {
             );
             this.addChild(this._finalScoreLabel);
 
-            // add the start button
+            // add the restart button
             this._restartButton = new objects.Button(
-                "restartButton", 320, 440, true
+                "restartButton", 320, 390, true
             );
+            this._restartButton.on("click", this._restartButtonClick, this);
             this.addChild(this._restartButton);
 
-            // Start button event listener
-            this._restartButton.on("click", this._restartButtonClick, this);
+            // add the restart level button
+            this._restartLevelButton = new objects.Button(
+                "restartLevelButton", 320, 340, true
+            );
+            this._restartLevelButton.on("click", this._restartLevelButtonClick, this);
+            this.addChild(this._restartLevelButton);
+
+            // add the exit button
+            this._exitButton = new objects.Button(
+                "exitButton", 320, 440, true
+            );
+            this.addChild(this._exitButton);
+
+            // Exit button event listener
+            this._exitButton.on("click", this._exitButtonClick, this);
 
             // add this scene to the global scene container
             core.stage.addChild(this);
@@ -63,12 +79,28 @@ module scenes {
         }
 
         // EVENT HANDLERS ++++++++++++++++
-
         private _restartButtonClick(event: createjs.MouseEvent): void {
             // Switch the scene
             core.currentLives = core.startingLives;
             core.score = 0;
             core.scene = config.Scene.PLAY;
+            core.changeScene();
+        }
+
+        private _restartLevelButtonClick(event: createjs.MouseEvent): void {
+            let currentLevel = core.play.levelNumber;
+            core.currentLives = core.startingLives;
+            core.score = 0;
+            core.scene = config.Scene.PLAY;
+            core.changeScene();
+            core.play.levelNumber = currentLevel;
+            createjs.Sound.stop();
+            core.play.ChangeLevel();
+        }
+
+        private _exitButtonClick(event: createjs.MouseEvent): void {
+            // Switch the scene
+            core.scene = config.Scene.EXIT;
             core.changeScene();
         }
     }

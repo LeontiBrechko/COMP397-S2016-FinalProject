@@ -64,14 +64,6 @@ var objects;
          * @method _reset
          * @returns {void}
          */
-        ChargedCloud.prototype._reset = function () {
-            this._dx = -Math.floor((Math.random() * 5) + 5); // horizontal speed
-            this._dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
-            this.rotation = Math.floor(Math.random() * 360);
-            // get a random y location
-            this.y = Math.floor((Math.random() * (480 - (this.width * 0.5))) + (this.width * 0.5));
-            this.x = 640 + this.width;
-        };
         /**
          * This method checks if the object has reached its boundaries
          *
@@ -81,7 +73,7 @@ var objects;
          */
         ChargedCloud.prototype._checkBounds = function () {
             if (this.x <= (0 - this.width)) {
-                this._reset();
+                this.reset();
             }
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++
@@ -98,7 +90,15 @@ var objects;
             this.height = this.getBounds().height;
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
-            this._reset();
+            this.reset();
+        };
+        ChargedCloud.prototype.reset = function () {
+            this._dx = -Math.floor((Math.random() * 5) + 5); // horizontal speed
+            this._dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
+            this.rotation = Math.floor(Math.random() * 360);
+            // get a random y location
+            this.y = Math.floor((Math.random() * (480 - (this.width * 0.5))) + (this.width * 0.5));
+            this.x = 640 + this.width;
         };
         /**
          * This method updates the object's properties

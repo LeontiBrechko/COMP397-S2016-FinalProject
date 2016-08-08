@@ -15,7 +15,7 @@ module scenes {
         private _menuLabel: objects.Label;
         private _startButton: objects.Button;
         private _instructionsButton: objects.Button;
-
+        private _exitButton: objects.Button;
         /**
          * Creates an instance of Menu.
          *
@@ -47,8 +47,18 @@ module scenes {
             // Start button event listener
             this._startButton.on("click", this._startButtonClick, this);
 
+            // add the exit button
+            this._exitButton = new objects.Button(
+                "exitButton", 320, 440, true
+            );
+            this.addChild(this._exitButton);
+
+            // Exit button event listener
+            this._exitButton.on("click", this._exitButtonClick, this);
+
+
             // add instructions button
-            this._instructionsButton = new objects.Button("instructionsButton", 320, 440, true);
+            this._instructionsButton = new objects.Button("instructionsButton", 320, 390, true);
             this.addChild(this._instructionsButton);
 
             // Instructions button event listener
@@ -75,6 +85,12 @@ module scenes {
         private _instructionsButtonClick(event: createjs.MouseEvent): void {
             // Switch the scene
             core.scene = config.Scene.INSTRUCTIONS;
+            core.changeScene();
+        }
+
+        private _exitButtonClick(event: createjs.MouseEvent): void {
+            // Switch the scene
+            core.scene = config.Scene.EXIT;
             core.changeScene();
         }
     }
