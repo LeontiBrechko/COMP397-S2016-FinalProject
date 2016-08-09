@@ -1,20 +1,23 @@
 module objects {
     export class Spaceman extends objects.GameObject {
         // PRIVATE INSTANCE VARIABLES ++++++++++++++++++++++++++++
-        private _upperLeftBoundary:Vector2;
-        private _lowerRightBoundary:Vector2;
-        private _dx:number;
-        private _dy:number;
-        private _timeToChangeDirection:number;
+        private _upperLeftBoundary:createjs.Point;
+        private _lowerRightBoundary:createjs.Point;
+        private _timeToFire:number;
 
         // PUBLIC PROPERTIES
+        
+        get timeToFire():number {
+            return this._timeToFire;
+        }
+        
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
 
-        constructor(imageString:string, upperLeftBoundary:Vector2, lowerRightBoundary:Vector2) {
+        constructor(imageString:string, upperLeftBoundary:createjs.Point, lowerRightBoundary:createjs.Point) {
             super(imageString);
 
-            if (upperLeftBoundary.x > lowerRightBoundary.x
-                || upperLeftBoundary.y > lowerRightBoundary.y)
+            if (upperLeftBoundary.x >= lowerRightBoundary.x
+                || upperLeftBoundary.y >= lowerRightBoundary.y)
                 throw new DOMException();
 
             this._upperLeftBoundary = upperLeftBoundary;
@@ -31,14 +34,13 @@ module objects {
          * @method _reset
          * @returns {void}
          */
-        private _reset():void {
-            this.regX = this._lowerRightBoundary.x - this.halfWidth;
-            this.regY = (this._upperLeftBoundary.y + this._lowerRightBoundary.y) / 2;
+        public reset():void {
+            this.x = this._lowerRightBoundary.x - this.width * 0.5;
+            this.y = (this._upperLeftBoundary.y + this._lowerRightBoundary.y) * 0.5;
             this.position.x = this.x;
             this.position.y = this.y;
-            this._dx = -5;
-            this._dy = 0;
-            this._timeToChangeDirection = 2000;
+            this.dx = -5;
+            this.dy = 0;
         }
 
         /**
@@ -49,12 +51,16 @@ module objects {
          * @returns {void}
          */
         private _checkBounds():void {
-            if (this.x + this.width >= this._lowerRightBoundary.x
-                || this.x <= this._upperLeftBoundary.x)
-                this._dx *= -1;
-            if (this.y + this.height >= this._lowerRightBoundary.y
-                || this.y <= this._upperLeftBoundary.y)
-                this._dy *= -1;
+            if (this.x + this.width * 0.5 > this._lowerRightBoundary.x
+                || this.x - this.width * 0.5 < this._upperLeftBoundary.x) {
+                this.dx *= -1;
+                this.x += this.dx;
+            }
+            if (this.y + this.height * 0.5 > this._lowerRightBoundary.y
+                || this.y - this.height * 0.5 < this._upperLeftBoundary.y) {
+                this.dy *= -1;
+                this.y += this.dy;
+            }
         }
 
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++
@@ -70,7 +76,9 @@ module objects {
         public start():void {
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this._reset();
+            this.regX = this.width * 0.5;
+            this.regY = this.height * 0.5;
+            this.reset();
         }
 
         /**
@@ -82,12 +90,13 @@ module objects {
          * @returns {void}
          */
         public update():void {
-            if (createjs.Ticker.getTime() % this._timeToChangeDirection == 0) {
-                this._dx = Math.floor(Math.random() * 10 - 5);
-                this._dy = Math.floor(Math.random() * 10 - 5);
+            if (createjs.Ticker.getTime(true) % core.gameSpeed <= 19) {
+                this.dx = Math.floor(Math.random() * 10 - 5);
+                this.dy = Math.floor(Math.random() * 10 - 5);
+                this._timeToFire = Math.floor(Math.random() * 500 + 500);
             }
-            this.x += this._dx;
-            this.y += this._dy;
+            this.x += this.dx;
+            this.y += this.dy;
             this._checkBounds();
             this.position.x = this.x;
             this.position.y = this.y;

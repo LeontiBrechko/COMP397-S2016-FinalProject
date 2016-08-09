@@ -25,7 +25,7 @@ var levels;
             }
             this._scoreLabel.text = "Score: " + core.score;
         };
-        Level1.prototype.InitializeLevel = function () {
+        Level1.prototype.initializeLevel = function () {
             // ocean object
             this._space = new objects.Space("space");
             this.addChild(this._space);
@@ -64,19 +64,19 @@ var levels;
             // add this scene to the global scene container
             core.stage.addChild(this);
         };
-        Level1.prototype.UpdateLevel = function () {
+        Level1.prototype.updateLevel = function () {
             var _this = this;
             this._space.update();
             this._planet.update();
             this._player.update();
             this._collision.check(this._player, this._planet);
-            this._chargedClouds.forEach(function (asteroid) {
-                asteroid.update();
-                _this._collision.check(_this._player, asteroid);
-                _this._chargedClouds.forEach(function (anotherAsteroid) {
-                    if (anotherAsteroid != asteroid &&
-                        asteroid.isColliding === anotherAsteroid.isColliding) {
-                        _this._collision.check(asteroid, anotherAsteroid);
+            this._chargedClouds.forEach(function (cloud) {
+                cloud.update();
+                _this._collision.check(_this._player, cloud);
+                _this._chargedClouds.forEach(function (anotherCloud) {
+                    if (anotherCloud != cloud &&
+                        cloud.isColliding === anotherCloud.isColliding) {
+                        _this._collision.check(cloud, anotherCloud);
                     }
                 });
             });

@@ -26,14 +26,16 @@ module scenes {
             super();
         }
 
-        public Start():void {
+        public start():void {
             // start with the first level
             this._levelNumber = config.Level.LEVEL_1;
+            if (this._currentLevel != null)
+                this._currentLevel.removeAllChildren();
             this._currentLevel = new levels.Level1();
         }
 
-        public Update():void {
-            this._currentLevel.UpdateLevel();
+        public update():void {
+            this._currentLevel.updateLevel();
         }
 
         public ChangeLevel():void {

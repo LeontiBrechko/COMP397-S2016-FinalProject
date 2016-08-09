@@ -26,7 +26,7 @@ var scenes;
         /**
          *
          */
-        Over.prototype.Start = function () {
+        Over.prototype.start = function () {
             this._space = new objects.Space("space");
             this.addChild(this._space);
             // Add Menu Label
@@ -50,7 +50,7 @@ var scenes;
             // add this scene to the global scene container
             core.stage.addChild(this);
         };
-        Over.prototype.Update = function () {
+        Over.prototype.update = function () {
             this._space.update();
             this._gameOverLabel.alpha == 1 ? this._gameOverLabel.alpha = 0 : this._gameOverLabel.alpha = 1;
             // scene updates happen here...

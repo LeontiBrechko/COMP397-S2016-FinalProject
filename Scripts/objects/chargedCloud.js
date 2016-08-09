@@ -23,6 +23,8 @@ var objects;
      */
     var ChargedCloud = (function (_super) {
         __extends(ChargedCloud, _super);
+        // PRIVATE INSTANCE VARIABLES ++++++++++++++++++++++++++++
+        // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of ChargedCloud.
@@ -34,27 +36,6 @@ var objects;
             _super.call(this, imageString);
             this.start();
         }
-        Object.defineProperty(ChargedCloud.prototype, "dy", {
-            // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
-            get: function () {
-                return this._dy;
-            },
-            set: function (newDy) {
-                this._dy = newDy;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ChargedCloud.prototype, "dx", {
-            get: function () {
-                return this._dx;
-            },
-            set: function (newDx) {
-                this._dx = newDx;
-            },
-            enumerable: true,
-            configurable: true
-        });
         // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++
         /**
          * Resets the object outside of the viewport
@@ -93,8 +74,8 @@ var objects;
             this.reset();
         };
         ChargedCloud.prototype.reset = function () {
-            this._dx = -Math.floor((Math.random() * 5) + 5); // horizontal speed
-            this._dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
+            this.dx = -Math.floor((Math.random() * 5) + 5); // horizontal speed
+            this.dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
             this.rotation = Math.floor(Math.random() * 360);
             // get a random y location
             this.y = Math.floor((Math.random() * (480 - (this.width * 0.5))) + (this.width * 0.5));
@@ -109,8 +90,8 @@ var objects;
          * @returns {void}
          */
         ChargedCloud.prototype.update = function () {
-            this.y += this._dy;
-            this.x += this._dx;
+            this.y += this.dy;
+            this.x += this.dx;
             this._checkBounds();
             this.position.x = this.x;
             this.position.y = this.y;

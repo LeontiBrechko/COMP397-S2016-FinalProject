@@ -20,6 +20,7 @@ var core;
     core.currentLives = core.startingLives;
     core.fuelLevel = 5;
     core.gunBullets = 0;
+    core.gameSpeed = 2000;
     var startButton; // reference to our button class
     // declare scene variables
     var currentScene;
@@ -29,26 +30,32 @@ var core;
     var instructions;
     // asset manifest for images and sounds
     var assetData = [
+        // button images
         { id: "startButton", src: "Assets/images/startButton.png" },
         { id: "instructionsButton", src: "Assets/images/instructionsButton.png" },
         { id: "restartButton", src: "Assets/images/restartButton.png" },
+        { id: "restartLevelButton", src: "Assets/images/restartLevelButton.png" },
         { id: "exitButton", src: "Assets/images/exitButton.png" },
         { id: "returnButton", src: "Assets/images/returnButton.png" },
+        // main object images
+        { id: "space", src: "Assets/images/space.png" },
         { id: "planet", src: "Assets/images/planet.png" },
         { id: "infectedPlanet", src: "Assets/images/infectedPlanet.png" },
         { id: "zombie", src: "Assets/images/zombie.png" },
         { id: "chargedCloud", src: "Assets/images/chargedCloud.png" },
         { id: "fuelBox", src: "Assets/images/fuel.png" },
         { id: "gunBox", src: "Assets/images/gun.png" },
-        { id: "space", src: "Assets/images/space.png" },
         { id: "live", src: "Assets/images/live.png" },
+        { id: "spaceman", src: "Assets/images/spaceman.png" },
+        { id: "bullet", src: "Assets/images/bullet.png" },
+        // sounds
         { id: "baaaa", src: "Assets/audio/baaaa.wav" },
         { id: "explosion", src: "Assets/audio/explosion.wav" },
         { id: "main_theme", src: "Assets/audio/main_theme.wav" },
         { id: "over", src: "Assets/audio/over.wav" },
+        // stub
         { id: "gameOverStub", src: "Assets/images/gameOverStub.png" },
-        { id: "nextLevelStub", src: "Assets/images/nextLevelStub.png" },
-        { id: "restartLevelButton", src: "Assets/images/restartLevelButton.png" }
+        { id: "nextLevelStub", src: "Assets/images/nextLevelStub.png" }
     ];
     /**
      * This method preloads assets for the game
@@ -86,7 +93,7 @@ var core;
      */
     function gameLoop(event) {
         // call the scenes's update
-        currentScene.Update();
+        currentScene.update();
         core.stage.update(); // refreshes the stage
     }
     /**

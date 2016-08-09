@@ -27,7 +27,7 @@ module scenes {
         /**
          *
          */
-        public Start(): void {
+        public start(): void {
             this._space = new objects.Space("space");
             this.addChild(this._space);
 
@@ -44,7 +44,7 @@ module scenes {
             );
             this.addChild(this._startButton);
 
-            // Start button event listener
+            // start button event listener
             this._startButton.on("click", this._startButtonClick, this);
 
             // add the exit button
@@ -68,7 +68,7 @@ module scenes {
             core.stage.addChild(this);
         }
 
-        public Update(): void {
+        public update(): void {
             this._space.update();
             this._menuLabel.alpha == 1 ? this._menuLabel.alpha = 0 : this._menuLabel.alpha = 1;
             // scene updates happen here...

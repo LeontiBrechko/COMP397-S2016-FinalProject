@@ -26,7 +26,7 @@ var scenes;
         /**
          *
          */
-        Exit.prototype.Start = function () {
+        Exit.prototype.start = function () {
             this._space = new objects.Space("space");
             this.addChild(this._space);
             //add the Thank You label
@@ -34,7 +34,7 @@ var scenes;
             this.addChild(this._thankYouLabel);
             core.stage.addChild(this);
         };
-        Exit.prototype.Update = function () {
+        Exit.prototype.update = function () {
             this._space.update();
             this._thankYouLabel.alpha == 1 ? this._thankYouLabel.alpha = 0 : this._thankYouLabel.alpha = 1;
             // scene updates happen here...

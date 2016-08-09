@@ -13,11 +13,11 @@ module objects {
         constructor() {
             super();
 
-            this.InitializeLevel();
+            this.initializeLevel();
         }
 
-        public abstract InitializeLevel():void;
+        public abstract initializeLevel():void;
 
-        public abstract UpdateLevel():void;
+        public abstract updateLevel():void;
     }
 }

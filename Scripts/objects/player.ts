@@ -88,5 +88,9 @@ module objects {
             this.position.y = this.y;
 
         }
+
+        public reset():void {
+            
+        }
     }
 }

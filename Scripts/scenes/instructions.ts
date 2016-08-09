@@ -26,7 +26,7 @@ module scenes {
         /**
          *
          */
-        public Start(): void {
+        public start(): void {
 
 
             let gameInstructions = [];
@@ -66,14 +66,14 @@ module scenes {
             );
             this.addChild(this._returnButton);
 
-            // Start button event listener
+            // start button event listener
             this._startButton.on("click", this._startButtonClick, this);
             this._returnButton.on("click", this._returnButtonClick, this);
             // add this scene to the global scene container
             core.stage.addChild(this);
         }
 
-        public Update(): void {
+        public update(): void {
             this._space.update();
             // scene updates happen here...
         }

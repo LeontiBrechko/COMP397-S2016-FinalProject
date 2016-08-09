@@ -34,7 +34,7 @@ module levels {
             this._scoreLabel.text = "Score: " + core.score;
         }
 
-        public InitializeLevel():void {
+        public initializeLevel():void {
             // ocean object
             this._space = new objects.Space("space");
             this.addChild(this._space);
@@ -82,19 +82,19 @@ module levels {
             core.stage.addChild(this);
         }
 
-        public UpdateLevel():void {
+        public updateLevel():void {
             this._space.update();
             this._planet.update();
             this._player.update();
             this._collision.check(this._player, this._planet);
 
-            this._chargedClouds.forEach(asteroid => {
-                asteroid.update();
-                this._collision.check(this._player, asteroid);
-                this._chargedClouds.forEach(anotherAsteroid => {
-                    if (anotherAsteroid != asteroid &&
-                        asteroid.isColliding === anotherAsteroid.isColliding) {
-                        this._collision.check(asteroid, anotherAsteroid);
+            this._chargedClouds.forEach(cloud => {
+                cloud.update();
+                this._collision.check(this._player, cloud);
+                this._chargedClouds.forEach(anotherCloud => {
+                    if (anotherCloud != cloud &&
+                        cloud.isColliding === anotherCloud.isColliding) {
+                        this._collision.check(cloud, anotherCloud);
                     }
                 })
             });

@@ -26,7 +26,7 @@ var scenes;
         /**
          *
          */
-        Instructions.prototype.Start = function () {
+        Instructions.prototype.start = function () {
             var gameInstructions = [];
             var instructionsArray = [
                 "You are a Zombie, infecting planets.",
@@ -52,13 +52,13 @@ var scenes;
             this.addChild(this._startButton);
             this._returnButton = new objects.Button("returnButton", 320, 390, true);
             this.addChild(this._returnButton);
-            // Start button event listener
+            // start button event listener
             this._startButton.on("click", this._startButtonClick, this);
             this._returnButton.on("click", this._returnButtonClick, this);
             // add this scene to the global scene container
             core.stage.addChild(this);
         };
-        Instructions.prototype.Update = function () {
+        Instructions.prototype.update = function () {
             this._space.update();
             // scene updates happen here...
         };

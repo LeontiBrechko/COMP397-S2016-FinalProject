@@ -22,26 +22,26 @@ module objects {
         constructor() {
             super();
 
-            this.Start();
+            this.start();
         }
 
         /**
          * Add game objects to the scene in this method
          * 
-         * @method Start
+         * @method start
          * @returns {void}
          */
-        public Start():void {
+        public start():void {
             core.stage.addChild(this);
         }
 
         /**
          * Updates Game objects in the Scene
          * 
-         * @method Update
+         * @method update
          * @returns {void} 
          */
-        public Update():void {
+        public update():void {
 
         }
     }

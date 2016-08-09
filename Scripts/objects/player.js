@@ -85,6 +85,8 @@ var objects;
             this.position.x = this.x;
             this.position.y = this.y;
         };
+        Player.prototype.reset = function () {
+        };
         return Player;
     }(objects.GameObject));
     objects.Player = Player;

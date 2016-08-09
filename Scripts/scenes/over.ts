@@ -29,7 +29,7 @@ module scenes {
         /**
          *
          */
-        public Start(): void {
+        public start(): void {
             this._space = new objects.Space("space");
             this.addChild(this._space);
             // Add Menu Label
@@ -72,7 +72,7 @@ module scenes {
             core.stage.addChild(this);
         }
 
-        public Update(): void {
+        public update(): void {
             this._space.update();
             this._gameOverLabel.alpha == 1 ? this._gameOverLabel.alpha = 0 : this._gameOverLabel.alpha = 1;
             // scene updates happen here...

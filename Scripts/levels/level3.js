@@ -19,7 +19,7 @@ var levels;
         function Level3() {
             _super.call(this);
         }
-        Level3.prototype.InitializeLevel = function () {
+        Level3.prototype.initializeLevel = function () {
             // stub initialization
             this._stubLabel = new objects.Label("This is level 3 stub.", "40px", "BroadwayFont", "#7200ff", 320, 140);
             this._stubGameOverButton = new objects.Button("gameOverStub", 320, 300, true);
@@ -29,7 +29,7 @@ var levels;
             // add this scene to the global scene container
             core.stage.addChild(this);
         };
-        Level3.prototype.UpdateLevel = function () {
+        Level3.prototype.updateLevel = function () {
         };
         // EVENT HANDLERS ++++++++++++++++
         /**

@@ -22,6 +22,8 @@ module objects {
         private _name:string;
         private _position:Vector2;
         private _isColliding:boolean;
+        private _dx:number;
+        private _dy:number;
         public sound:createjs.AbstractSoundInstance;
 
         // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
@@ -74,6 +76,22 @@ module objects {
             this._isColliding = newState;
         }
 
+        get dy():number {
+            return this._dy;
+        }
+
+        set dy(newDy:number) {
+            this._dy = newDy;
+        }
+
+        get dx():number {
+            return this._dx;
+        }
+
+        set dx(newDx:number) {
+            this._dx = newDx;
+        }
+
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of the GameObject.
@@ -86,7 +104,7 @@ module objects {
 
             this._initialize(imageString);
 
-            this.start();
+            // this.start();
         }
 
         private _initialize(imageString:string):void {
@@ -107,9 +125,7 @@ module objects {
          * @method start
          * @returns {void}
          */
-        public start():void {
-
-        }
+        public abstract start():void;
 
         /**
          * This method updates the object's properties
@@ -119,11 +135,9 @@ module objects {
          * @method update
          * @returns {void}
          */
-        public update():void {
+        public abstract update():void;
 
-
-        }
-
+        public abstract reset():void;
 
     }
 }

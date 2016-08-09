@@ -18,7 +18,7 @@ module levels {
             super();
         }
 
-        public InitializeLevel():void {
+        public initializeLevel():void {
             // stub initialization
             this._stubLabel = new objects.Label("This is level 3 stub.", "40px", "BroadwayFont", "#7200ff", 320, 140);
             this._stubGameOverButton = new objects.Button("gameOverStub", 320, 300, true);
@@ -30,7 +30,7 @@ module levels {
             core.stage.addChild(this);
         }
 
-        public UpdateLevel():void {
+        public updateLevel():void {
         }
 
         // EVENT HANDLERS ++++++++++++++++

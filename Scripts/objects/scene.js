@@ -27,24 +27,24 @@ var objects;
         __extends(Scene, _super);
         function Scene() {
             _super.call(this);
-            this.Start();
+            this.start();
         }
         /**
          * Add game objects to the scene in this method
          *
-         * @method Start
+         * @method start
          * @returns {void}
          */
-        Scene.prototype.Start = function () {
+        Scene.prototype.start = function () {
             core.stage.addChild(this);
         };
         /**
          * Updates Game objects in the Scene
          *
-         * @method Update
+         * @method update
          * @returns {void}
          */
-        Scene.prototype.Update = function () {
+        Scene.prototype.update = function () {
         };
         return Scene;
     }(createjs.Container));

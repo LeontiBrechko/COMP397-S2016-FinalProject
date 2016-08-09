@@ -23,6 +23,8 @@ var objects;
      */
     var FuelBox = (function (_super) {
         __extends(FuelBox, _super);
+        // PRIVATE INSTANCE VARIABLES ++++++++++++++++++++++++++++
+        // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of ChargedCloud.
@@ -34,27 +36,6 @@ var objects;
             _super.call(this, imageString);
             this.start();
         }
-        Object.defineProperty(FuelBox.prototype, "dy", {
-            // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
-            get: function () {
-                return this._dy;
-            },
-            set: function (newDy) {
-                this._dy = newDy;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(FuelBox.prototype, "dx", {
-            get: function () {
-                return this._dx;
-            },
-            set: function (newDx) {
-                this._dx = newDx;
-            },
-            enumerable: true,
-            configurable: true
-        });
         // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++
         /**
          * This method checks if the object has reached its boundaries
@@ -93,8 +74,8 @@ var objects;
         * @returns {void}
         */
         FuelBox.prototype.reset = function () {
-            this._dx = -Math.floor((Math.random() * 5) + 7); // horizontal speed
-            this._dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
+            this.dx = -Math.floor((Math.random() * 5) + 7); // horizontal speed
+            this.dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
             // get a random y location
             this.y = Math.floor((Math.random() * (480 - (this.width * 0.5))) + (this.width * 0.5));
             this.x = 640 + this.width;
@@ -108,8 +89,8 @@ var objects;
          * @returns {void}
          */
         FuelBox.prototype.update = function () {
-            this.y += this._dy;
-            this.x += this._dx;
+            this.y += this.dy;
+            this.x += this.dx;
             this._checkBounds();
             this.position.x = this.x;
             this.position.y = this.y;

@@ -26,7 +26,7 @@ var scenes;
         /**
          *
          */
-        Menu.prototype.Start = function () {
+        Menu.prototype.start = function () {
             this._space = new objects.Space("space");
             this.addChild(this._space);
             // Add Menu Label
@@ -35,7 +35,7 @@ var scenes;
             // add the start button
             this._startButton = new objects.Button("startButton", 320, 340, true);
             this.addChild(this._startButton);
-            // Start button event listener
+            // start button event listener
             this._startButton.on("click", this._startButtonClick, this);
             // add the exit button
             this._exitButton = new objects.Button("exitButton", 320, 440, true);
@@ -50,7 +50,7 @@ var scenes;
             // add this scene to the global scene container
             core.stage.addChild(this);
         };
-        Menu.prototype.Update = function () {
+        Menu.prototype.update = function () {
             this._space.update();
             this._menuLabel.alpha == 1 ? this._menuLabel.alpha = 0 : this._menuLabel.alpha = 1;
             // scene updates happen here...

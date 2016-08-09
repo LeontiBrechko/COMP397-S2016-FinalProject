@@ -18,7 +18,7 @@ var objects;
         __extends(Level, _super);
         function Level() {
             _super.call(this);
-            this.InitializeLevel();
+            this.initializeLevel();
         }
         return Level;
     }(createjs.Container));

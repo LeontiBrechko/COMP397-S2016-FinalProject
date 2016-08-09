@@ -38,23 +38,25 @@ module managers {
         public check(object1:objects.GameObject, object2:objects.GameObject) {
             if (objects.Vector2.distance(object1.position, object2.position)
                 <= (object1.halfHeight + object2.halfHeight)) {
-                // if chargedCloud collides with another one
-                if (object1.name === "chargedCloud" && object2.name === "chargedCloud") {
-                    let tempDx = (<objects.ChargedCloud> object1).dx;
-                    let tempDy = (<objects.ChargedCloud> object1).dy;
-                    (<objects.ChargedCloud> object1).dx = (<objects.ChargedCloud> object2).dx;
-                    (<objects.ChargedCloud> object1).dy = (<objects.ChargedCloud> object2).dy;
-                    (<objects.ChargedCloud> object2).dx = tempDx;
-                    (<objects.ChargedCloud> object2).dy = tempDy;
+                 // if first object is not a player
+                if (object1.name !== "zombie") {
+                    let tempDx = object1.dx;
+                    let tempDy = object1.dy;
+                    object1.dx = object2.dx;
+                    object1.dy = object2.dy;
+                    object2.dx = tempDx;
+                    object2.dy = tempDy;
                     object1.update();
                     object2.update();
                     if (objects.Vector2.distance(object1.position, object2.position)
                         < (object1.halfHeight + object2.halfHeight)) {
-                        if (object1.x > object2.x) object1.x += (object2.width - (object1.x - object2.x) + 1);
-                        else object2.x += (object1.width - (object2.x - object1.x) + 1);
+                        if (object1.x > object2.x)
+                            object1.x += (object2.width - (object1.x - object2.x) + 1);
+                        else
+                            object2.x += (object1.width - (object2.x - object1.x) + 1);
                     }
-                    // if first object is player
-                } else if (object1.name === "zombie") {
+                // if first object is a player
+                } else {
                     if (!object2.isColliding) {
                         object2.isColliding = true;
 
@@ -65,26 +67,32 @@ module managers {
                         }
 
                         if (object2.name === "fuelBox") {
-                            if(core.fuelLevel<5)
+                            if (core.fuelLevel < 5)
                                 core.fuelLevel++;
                             (<objects.FuelBox>object2).reset();
                             createjs.Sound.play("explosion");
                         }
 
                         if (object2.name === "gunBox") {
-                                core.gunBullets+=5;
+                            core.gunBullets += 5;
                             (<objects.GunBox>object2).reset();
 
-                            //ToDo: change the sound
+                            //TODO: change the sound
                             createjs.Sound.play("explosion");
                         }
 
                         // if zombie collides with island
                         if (object2.name === "planet") {
-                            // TO-DO: change to asset load
+                            // TODO: change to asset load
                             (<HTMLImageElement> object2.image).src = "Assets/images/infectedPlanet.png";
                             core.score += 100;
                             createjs.Sound.play("baaaa");
+                        }
+
+                        // if zombie collides with bullet
+                        if (object2.name === "bullet") {
+                            core.currentLives -= 1;
+                            object2.reset();
                         }
                     }
                 }

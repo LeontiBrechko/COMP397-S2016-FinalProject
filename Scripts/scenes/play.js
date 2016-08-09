@@ -29,13 +29,15 @@ var scenes;
             enumerable: true,
             configurable: true
         });
-        Play.prototype.Start = function () {
+        Play.prototype.start = function () {
             // start with the first level
             this._levelNumber = config.Level.LEVEL_1;
+            if (this._currentLevel != null)
+                this._currentLevel.removeAllChildren();
             this._currentLevel = new levels.Level1();
         };
-        Play.prototype.Update = function () {
-            this._currentLevel.UpdateLevel();
+        Play.prototype.update = function () {
+            this._currentLevel.updateLevel();
         };
         Play.prototype.ChangeLevel = function () {
             //Launch Various Levels

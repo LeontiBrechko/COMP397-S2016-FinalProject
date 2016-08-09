@@ -23,6 +23,7 @@ var objects;
      */
     var Planet = (function (_super) {
         __extends(Planet, _super);
+        // PRIVATE INSTANCE VARIABLES ++++++++++++++++++++++++++++
         // PUBLIC PROPERTIES
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
@@ -44,7 +45,7 @@ var objects;
          * @method _reset
          * @returns {void}
          */
-        Planet.prototype._reset = function () {
+        Planet.prototype.reset = function () {
             this.y = Math.floor((Math.random() * (480 - (this.width * 1))) + (this.width * 0.5));
             // get a random x location
             this.x = 640 + this.width;
@@ -58,9 +59,9 @@ var objects;
          */
         Planet.prototype._checkBounds = function () {
             if (this.x <= (0 - this.width)) {
-                // TO-DO: change to asset load
+                // TODO: change to asset load
                 this.image.src = "Assets/images/planet.png";
-                this._reset();
+                this.reset();
             }
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++
@@ -73,12 +74,14 @@ var objects;
          * @returns {void}
          */
         Planet.prototype.start = function () {
+            // TODO: change to asset load
+            this.image.src = "Assets/images/planet.png";
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
-            this._reset();
-            this._dx = -5; // 5px per frame down
+            this.reset();
+            this.dx = -5; // 5px per frame down
         };
         /**
          * This method updates the object's properties
@@ -89,7 +92,7 @@ var objects;
          * @returns {void}
          */
         Planet.prototype.update = function () {
-            this.x += this._dx;
+            this.x += this.dx;
             this._checkBounds();
             this.position.x = this.x;
             this.position.y = this.y;
