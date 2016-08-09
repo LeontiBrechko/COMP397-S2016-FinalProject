@@ -29,14 +29,14 @@ var levels;
         Level2.prototype.initializeLevel = function () {
             this._levelTotalTime = 15000;
             core.fuelLevel = 5;
+            if (core.themeSound.playState != "playSucceeded")
+                core.themeSound.play();
             // space object
             this._space = new objects.Space("space");
             this.addChild(this._space);
             // player object
             this._player = new objects.Player("zombie");
             this.addChild(this._player);
-            this._themeSound = createjs.Sound.play("main_theme");
-            this._themeSound.loop = -1;
             // fuel box array
             this._fuelBoxes = new Array();
             for (var i = 0; i < 2; i++) {

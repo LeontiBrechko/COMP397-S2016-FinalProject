@@ -21,7 +21,6 @@ module levels {
         private _fuelLevelLabel:objects.Label;
         private _bulletLabel:objects.Label;
         private _liveIcons:createjs.Bitmap[];
-        private _themeSound:createjs.AbstractSoundInstance;
         private _levelProgress:createjs.Bitmap;
         private _playerIcon:createjs.Bitmap;
         private _levelTotalTime:number;
@@ -44,6 +43,8 @@ module levels {
         public initializeLevel():void {
             this._levelTotalTime = 15000;
             core.fuelLevel = 5;
+            if (core.themeSound.playState != "playSucceeded")
+                core.themeSound.play();
 
             // space object
             this._space = new objects.Space("space");
@@ -52,8 +53,6 @@ module levels {
             // player object
             this._player = new objects.Player("zombie");
             this.addChild(this._player);
-            this._themeSound = createjs.Sound.play("main_theme");
-            this._themeSound.loop = -1;
 
             // fuel box array
             this._fuelBoxes = new Array<objects.FuelBox>();
@@ -163,8 +162,7 @@ module levels {
                     }
                 });
             });
-
-
+            
             this._spacemen.forEach(spaceman => {
                 spaceman.update();
                 if (createjs.Ticker.getTime() % spaceman.timeToFire <= 19) {

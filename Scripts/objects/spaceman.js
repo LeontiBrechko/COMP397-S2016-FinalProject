@@ -34,7 +34,7 @@ var objects;
          * @returns {void}
          */
         Spaceman.prototype.reset = function () {
-            this.x = this._lowerRightBoundary.x - this.width * 0.5;
+            this.x = this._lowerRightBoundary.x + this.width * 0.5;
             this.y = (this._upperLeftBoundary.y + this._lowerRightBoundary.y) * 0.5;
             this.position.x = this.x;
             this.position.y = this.y;
@@ -85,16 +85,22 @@ var objects;
          * @returns {void}
          */
         Spaceman.prototype.update = function () {
-            if (createjs.Ticker.getTime(true) % core.gameSpeed <= 19) {
-                this.dx = Math.floor(Math.random() * 10 - 5);
-                this.dy = Math.floor(Math.random() * 10 - 5);
-                this._timeToFire = Math.floor(Math.random() * 500 + 500);
+            if (this.x <= this._lowerRightBoundary.x - this.width * 0.5) {
+                if (createjs.Ticker.getTime(true) % core.gameSpeed <= 19) {
+                    this.dx = Math.floor(Math.random() * 10 - 5);
+                    this.dy = Math.floor(Math.random() * 10 - 5);
+                    this._timeToFire = Math.floor(Math.random() * 500 + 500);
+                }
+                this.x += this.dx;
+                this.y += this.dy;
+                this._checkBounds();
+                this.position.x = this.x;
+                this.position.y = this.y;
             }
-            this.x += this.dx;
-            this.y += this.dy;
-            this._checkBounds();
-            this.position.x = this.x;
-            this.position.y = this.y;
+            else {
+                this.x += this.dx;
+                this.position.x = this.x;
+            }
         };
         return Spaceman;
     }(objects.GameObject));

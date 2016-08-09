@@ -59,6 +59,7 @@ var core;
         { id: "gunPick", src: "Assets/audio/gunPick.wav" },
         { id: "laserHit", src: "Assets/audio/laserHit.wav" },
         { id: "taDaFinal", src: "Assets/audio/taDaFinal.wav" },
+        { id: "pew", src: "Assets/audio/pew.wav" },
         // stub
         { id: "gameOverStub", src: "Assets/images/gameOverStub.png" },
         { id: "nextLevelStub", src: "Assets/images/nextLevelStub.png" }
@@ -86,6 +87,9 @@ var core;
         core.stage.enableMouseOver(20);
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", gameLoop); // create an event listener for the tick event
+        core.themeSound = createjs.Sound.play("main_theme");
+        core.themeSound.stop();
+        core.themeSound.loop = -1;
         // setup the default scene
         core.scene = config.Scene.MENU;
         changeScene();

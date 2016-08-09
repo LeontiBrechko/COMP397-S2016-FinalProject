@@ -26,6 +26,8 @@ var levels;
             this._scoreLabel.text = "Score: " + core.score;
         };
         Level1.prototype.initializeLevel = function () {
+            if (core.themeSound.playState != "playSucceeded")
+                core.themeSound.play();
             // ocean object
             this._space = new objects.Space("space");
             this.addChild(this._space);
@@ -35,8 +37,6 @@ var levels;
             // player object
             this._player = new objects.Player("zombie");
             this.addChild(this._player);
-            this._themeSound = createjs.Sound.play("main_theme");
-            this._themeSound.loop = -1;
             // charged cloud array
             this._chargedClouds = new Array();
             for (var i = 0; i < 3; i++) {
@@ -67,31 +67,57 @@ var levels;
         Level1.prototype.updateLevel = function () {
             var _this = this;
             this._space.update();
-            this._planet.update();
             this._player.update();
-            this._collision.check(this._player, this._planet);
-            this._chargedClouds.forEach(function (cloud) {
-                cloud.update();
-                _this._collision.check(_this._player, cloud);
-                _this._chargedClouds.forEach(function (anotherCloud) {
-                    if (anotherCloud != cloud &&
-                        cloud.isColliding === anotherCloud.isColliding) {
-                        _this._collision.check(cloud, anotherCloud);
+            if (core.score < 800) {
+                this._planet.update();
+                this._collision.check(this._player, this._planet);
+                this._chargedClouds.forEach(function (cloud) {
+                    cloud.update();
+                    _this._collision.check(_this._player, cloud);
+                    _this._chargedClouds.forEach(function (anotherCloud) {
+                        if (anotherCloud != cloud &&
+                            cloud.isColliding === anotherCloud.isColliding) {
+                            _this._collision.check(cloud, anotherCloud);
+                        }
+                    });
+                });
+            }
+            else {
+                if (this._planet.x > 0 - this._planet.width) {
+                    this._planet.update();
+                    this._collision.check(this._player, this._planet);
+                }
+                else {
+                    this._planet.isActive = false;
+                }
+                this._chargedClouds.forEach(function (cloud) {
+                    if (cloud.isActive && cloud.x > 0 - cloud.width) {
+                        cloud.update();
+                        _this._collision.check(_this._player, cloud);
+                        _this._chargedClouds.forEach(function (anotherCloud) {
+                            if (anotherCloud != cloud &&
+                                cloud.isColliding === anotherCloud.isColliding) {
+                                _this._collision.check(cloud, anotherCloud);
+                            }
+                        });
+                    }
+                    else {
+                        cloud.isActive = false;
                     }
                 });
-            });
+                if (!this._planet.isActive
+                    && this._chargedClouds.filter(function (cloud) { return cloud.isActive; }).length === 0
+                    && this._space.x == 0) {
+                    core.play.levelNumber++;
+                    core.play.ChangeLevel();
+                }
+            }
             this._updateScoreBoard();
             if (core.currentLives < 1) {
                 createjs.Sound.stop();
                 createjs.Sound.play("over");
                 core.scene = config.Scene.OVER;
                 core.changeScene();
-            }
-            // stub test on score
-            if (core.score >= 800) {
-                createjs.Sound.stop();
-                core.play.levelNumber++;
-                core.play.ChangeLevel();
             }
         };
         // EVENT HANDLERS ++++++++++++++++

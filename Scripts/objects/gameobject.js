@@ -120,6 +120,16 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(GameObject.prototype, "isActive", {
+            get: function () {
+                return this._isActive;
+            },
+            set: function (newStatus) {
+                this._isActive = newStatus;
+            },
+            enumerable: true,
+            configurable: true
+        });
         GameObject.prototype._initialize = function (imageString) {
             this.name = imageString;
             this.width = this.getBounds().width;
@@ -128,6 +138,7 @@ var objects;
             this.regY = this.halfHeight;
             this.position = new objects.Vector2(this.x, this.y);
             this.isColliding = false;
+            this.isActive = true;
         };
         return GameObject;
     }(createjs.Bitmap));

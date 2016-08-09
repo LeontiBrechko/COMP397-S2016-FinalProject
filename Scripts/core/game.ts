@@ -31,6 +31,7 @@ namespace core {
     export let fuelLevel:number = 5;
     export let gunBullets:number = 0;
     export let gameSpeed:number = 2000;
+    export let themeSound:createjs.AbstractSoundInstance;
     let startButton:objects.Button; // reference to our button class
 
     // declare scene variables
@@ -75,6 +76,7 @@ namespace core {
         {id: "gunPick", src: "Assets/audio/gunPick.wav"},
         {id: "laserHit", src: "Assets/audio/laserHit.wav"},
         {id: "taDaFinal", src: "Assets/audio/taDaFinal.wav"},
+        {id: "pew", src: "Assets/audio/pew.wav"},
         // stub
         {id: "gameOverStub", src: "Assets/images/gameOverStub.png"},
         {id: "nextLevelStub", src: "Assets/images/nextLevelStub.png"}
@@ -105,6 +107,9 @@ namespace core {
         stage.enableMouseOver(20);
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", gameLoop); // create an event listener for the tick event
+        themeSound = createjs.Sound.play("main_theme");
+        themeSound.stop();
+        themeSound.loop = -1;
 
         // setup the default scene
         scene = config.Scene.MENU;

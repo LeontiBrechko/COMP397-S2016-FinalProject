@@ -58,7 +58,7 @@ var objects;
          * @returns {void}
          */
         Planet.prototype._checkBounds = function () {
-            if (this.x <= (0 - this.width)) {
+            if (this.x <= (0 - this.width + this.dx)) {
                 // TODO: change to asset load
                 this.image.src = "Assets/images/planet.png";
                 this.reset();

@@ -24,6 +24,7 @@ module objects {
         private _isColliding:boolean;
         private _dx:number;
         private _dy:number;
+        private _isActive:boolean;
         public sound:createjs.AbstractSoundInstance;
 
         // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
@@ -92,6 +93,14 @@ module objects {
             this._dx = newDx;
         }
 
+        get isActive():boolean {
+            return this._isActive;
+        }
+
+        set isActive(newStatus:boolean) {
+            this._isActive = newStatus;
+        }
+
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of the GameObject.
@@ -115,6 +124,7 @@ module objects {
             this.regY = this.halfHeight;
             this.position = new Vector2(this.x, this.y);
             this.isColliding = false;
+            this.isActive = true;
         }
 
         /**

@@ -11,22 +11,24 @@
 module objects {
     /**
      * This is the Planet object used in the game
-     * 
+     *
      * @export
      * @class Planet
      * @extends {createjs.Bitmap}
      */
     export class Planet extends GameObject {
         // PRIVATE INSTANCE VARIABLES ++++++++++++++++++++++++++++
+        
         // PUBLIC PROPERTIES
+
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of Planet.
-         * 
+         *
          * @constructor
          * @param {string} imageString
          */
-        constructor(imageString: string) {
+        constructor(imageString:string) {
             super(imageString);
 
             this.start();
@@ -36,7 +38,7 @@ module objects {
         /**
          * Resets the object outside of the viewport
          * and sets the x and y locations
-         * 
+         *
          * @private
          * @method _reset
          * @returns {void}
@@ -45,31 +47,31 @@ module objects {
             this.y = Math.floor((Math.random() * (480 - (this.width * 1))) + (this.width * 0.5));
 
             // get a random x location
-            this.x = 640+this.width;
+            this.x = 640 + this.width;
         }
 
         /**
          * This method checks if the object has reached its boundaries
-         * 
+         *
          * @private
          * @method _checkBounds
          * @returns {void}
          */
         private _checkBounds():void {
-            if(this.x <=(0-this.width)) {
+            if (this.x <= (0 - this.width + this.dx)) {
                 // TODO: change to asset load
                 (<HTMLImageElement> this.image).src = "Assets/images/planet.png";
                 this.reset();
             }
         }
-        
+
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++
 
         /**
-         * This method is used to initialize public properties 
+         * This method is used to initialize public properties
          * and private instance variables
-         * 
-         * @public 
+         *
+         * @public
          * @method start
          * @returns {void}
          */
@@ -87,8 +89,8 @@ module objects {
         /**
          * This method updates the object's properties
          * every time it's called
-         * 
-         * @public 
+         *
+         * @public
          * @method update
          * @returns {void}
          */

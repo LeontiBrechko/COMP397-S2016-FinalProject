@@ -53,7 +53,7 @@ var objects;
          * @returns {void}
          */
         ChargedCloud.prototype._checkBounds = function () {
-            if (this.x <= (0 - this.width)) {
+            if (this.x <= (0 - this.width + this.dx)) {
                 this.reset();
             }
         };
