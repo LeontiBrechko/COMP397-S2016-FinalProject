@@ -42,17 +42,23 @@ var core;
         { id: "planet", src: "Assets/images/planet.png" },
         { id: "infectedPlanet", src: "Assets/images/infectedPlanet.png" },
         { id: "zombie", src: "Assets/images/zombie.png" },
+        { id: "zombieIcon", src: "Assets/images/zombieIcon.png" },
         { id: "chargedCloud", src: "Assets/images/chargedCloud.png" },
         { id: "fuelBox", src: "Assets/images/fuel.png" },
         { id: "gunBox", src: "Assets/images/gun.png" },
         { id: "live", src: "Assets/images/live.png" },
         { id: "spaceman", src: "Assets/images/spaceman.png" },
         { id: "bullet", src: "Assets/images/bullet.png" },
+        { id: "levelProgress", src: "Assets/images/levelProgress.png" },
         // sounds
         { id: "baaaa", src: "Assets/audio/baaaa.wav" },
         { id: "explosion", src: "Assets/audio/explosion.wav" },
         { id: "main_theme", src: "Assets/audio/main_theme.wav" },
         { id: "over", src: "Assets/audio/over.wav" },
+        { id: "fuelPick", src: "Assets/audio/fuelPick.wav" },
+        { id: "gunPick", src: "Assets/audio/gunPick.wav" },
+        { id: "laserHit", src: "Assets/audio/laserHit.wav" },
+        { id: "taDaFinal", src: "Assets/audio/taDaFinal.wav" },
         // stub
         { id: "gameOverStub", src: "Assets/images/gameOverStub.png" },
         { id: "nextLevelStub", src: "Assets/images/nextLevelStub.png" }

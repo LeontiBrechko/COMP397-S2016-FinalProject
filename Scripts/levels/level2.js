@@ -27,8 +27,7 @@ var levels;
             this._bulletLabel.text = "Bullets:" + core.gunBullets;
         };
         Level2.prototype.initializeLevel = function () {
-            this._levelTimer = 0;
-            core.currentLives = 1;
+            this._levelTotalTime = 15000;
             core.fuelLevel = 5;
             // space object
             this._space = new objects.Space("space");
@@ -80,12 +79,23 @@ var levels;
                 this._liveIcons[i].y = 5;
                 this.addChild(this._liveIcons[i]);
             }
+            // level progress bar
+            this._levelProgress = new createjs.Bitmap(core.assets.getResult("levelProgress"));
+            this._levelProgress.x = 10;
+            this._levelProgress.y = 454;
+            this.addChild(this._levelProgress);
+            // player icon on progress bar
+            this._playerIcon = new createjs.Bitmap(core.assets.getResult("zombieIcon"));
+            this._playerIcon.x = 10;
+            this._playerIcon.y = 455;
+            this.addChild(this._playerIcon);
             // add stub next level button
-            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 440, true);
+            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 430, true);
             this._stubNextLevelButton.on("click", this._nextLevel, this);
             this.addChild(this._stubNextLevelButton);
             // add this scene to the global scene container
             core.stage.addChild(this);
+            this._levelStartTime = createjs.Ticker.getTime();
         };
         Level2.prototype.updateLevel = function () {
             var _this = this;
@@ -140,24 +150,22 @@ var levels;
                 core.scene = config.Scene.OVER;
                 core.changeScene();
             }
-            // stub test on score
-            if (core.score >= 500) {
-                createjs.Sound.stop();
-                core.play.levelNumber++;
-                core.play.ChangeLevel();
-            }
-            if (createjs.Ticker.getTime(true) % core.gameSpeed <= 19) {
+            // updating fuel level
+            if (createjs.Ticker.getTime() % core.gameSpeed <= 19) {
                 if (core.fuelLevel > 0)
                     core.fuelLevel--;
             }
-            if (this._levelTimer >= 600) {
-                this._levelTimer = 0;
+            if (createjs.Ticker.getTime() - this._levelStartTime <= this._levelTotalTime) {
+                this._playerIcon.x = 10 +
+                    (createjs.Ticker.getTime() - this._levelStartTime) / this._levelTotalTime
+                        * (620 - this._playerIcon.getBounds().width);
+            }
+            else {
                 console.log("level 2 is done");
                 createjs.Sound.stop();
                 core.play.levelNumber++;
                 core.play.ChangeLevel();
             }
-            this._levelTimer++;
         };
         // EVENT HANDLERS ++++++++++++++++
         /**

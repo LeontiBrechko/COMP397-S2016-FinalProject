@@ -62,13 +62,13 @@ var managers;
                             if (core.fuelLevel < 5)
                                 core.fuelLevel++;
                             object2.reset();
-                            createjs.Sound.play("explosion");
+                            createjs.Sound.play("fuelPick");
                         }
                         if (object2.name === "gunBox") {
                             core.gunBullets += 5;
                             object2.reset();
                             //TODO: change the sound
-                            createjs.Sound.play("explosion");
+                            createjs.Sound.play("gunPick");
                         }
                         // if zombie collides with island
                         if (object2.name === "planet") {
@@ -81,6 +81,7 @@ var managers;
                         if (object2.name === "bullet") {
                             core.currentLives -= 1;
                             object2.reset();
+                            createjs.Sound.play("laserHit");
                         }
                     }
                 }

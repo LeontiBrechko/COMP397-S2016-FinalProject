@@ -58,7 +58,7 @@ var levels;
             this._scoreLabel.textAlign = "center";
             this.addChild(this._scoreLabel);
             // add stub next level button
-            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 440, true);
+            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 430, true);
             this._stubNextLevelButton.on("click", this._nextLevel, this);
             this.addChild(this._stubNextLevelButton);
             // add this scene to the global scene container
@@ -88,7 +88,7 @@ var levels;
                 core.changeScene();
             }
             // stub test on score
-            if (core.score >= 300) {
+            if (core.score >= 800) {
                 createjs.Sound.stop();
                 core.play.levelNumber++;
                 core.play.ChangeLevel();

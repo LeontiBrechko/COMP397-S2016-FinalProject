@@ -15,16 +15,19 @@ module levels {
         private _player:objects.Player;
         private _fuelBoxes:objects.FuelBox[];
         private _gunBoxes:objects.GunBox[];
-         private _spacemen:objects.Spaceman[];
+        private _spacemen:objects.Spaceman[];
         private _bullets:objects.Bullet[];
         private _collision:managers.Collision;
         private _fuelLevelLabel:objects.Label;
         private _bulletLabel:objects.Label;
         private _liveIcons:createjs.Bitmap[];
         private _themeSound:createjs.AbstractSoundInstance;
+        private _levelProgress:createjs.Bitmap;
+        private _playerIcon:createjs.Bitmap;
+        private _levelTotalTime:number;
+        private _levelStartTime:number;
         //stub button
         private _stubNextLevelButton:objects.Button;
-        private _levelTimer:number;
 
         constructor() {
             super();
@@ -39,8 +42,7 @@ module levels {
         }
         
         public initializeLevel():void {
-            this._levelTimer = 0;
-            core.currentLives = 1;
+            this._levelTotalTime = 15000;
             core.fuelLevel = 5;
 
             // space object
@@ -108,13 +110,27 @@ module levels {
                 this.addChild(this._liveIcons[i]);
             }
 
+            // level progress bar
+            this._levelProgress = new createjs.Bitmap(core.assets.getResult("levelProgress"));
+            this._levelProgress.x = 10;
+            this._levelProgress.y = 454;
+            this.addChild(this._levelProgress);
+
+            // player icon on progress bar
+            this._playerIcon = new createjs.Bitmap(core.assets.getResult("zombieIcon"));
+            this._playerIcon.x = 10;
+            this._playerIcon.y = 455;
+            this.addChild(this._playerIcon);
+
             // add stub next level button
-            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 440, true);
+            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 430, true);
             this._stubNextLevelButton.on("click", this._nextLevel, this);
             this.addChild(this._stubNextLevelButton);
 
             // add this scene to the global scene container
             core.stage.addChild(this);
+
+            this._levelStartTime = createjs.Ticker.getTime();
         }
 
         public updateLevel():void {
@@ -177,26 +193,22 @@ module levels {
                 core.changeScene();
             }
 
-            // stub test on score
-            if (core.score >= 500) {
-                createjs.Sound.stop();
-                core.play.levelNumber++;
-                core.play.ChangeLevel();
-            }
-
-            if (createjs.Ticker.getTime(true) % core.gameSpeed <= 19) {
+            // updating fuel level
+            if (createjs.Ticker.getTime() % core.gameSpeed <= 19) {
                 if (core.fuelLevel > 0)
                     core.fuelLevel--;
             }
 
-            if (this._levelTimer >= 600) {
-                this._levelTimer = 0;
+            if (createjs.Ticker.getTime() - this._levelStartTime <= this._levelTotalTime) {
+                this._playerIcon.x = 10 +
+                    (createjs.Ticker.getTime() - this._levelStartTime) / this._levelTotalTime
+                    * (620 - this._playerIcon.getBounds().width);
+            } else {
                 console.log("level 2 is done");
                 createjs.Sound.stop();
                 core.play.levelNumber++;
                 core.play.ChangeLevel();
             }
-            this._levelTimer++;
         }
 
         // EVENT HANDLERS ++++++++++++++++
