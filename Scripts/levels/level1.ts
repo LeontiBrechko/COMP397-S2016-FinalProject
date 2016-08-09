@@ -1,14 +1,24 @@
 /**
+ * Created by Anton on 2016-08-08.
+ */
+/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 8, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.2 - Version includes level 1 and 2
  */
 
 module levels {
+    /**
+     * This is the Level1 class for the level with ChargedClouds
+     * 
+     * @export
+     * @class Level1
+     * @extends {createjs.Bitmap}
+     */
     export class Level1 extends objects.Level {
         //  PRIVATE INSTANCE VARIABLES
         private _space:objects.Space;
@@ -34,7 +44,7 @@ module levels {
             this._scoreLabel.text = "Score: " + core.score;
         }
 
-        public InitializeLevel():void {
+        public initializeLevel():void {
             // ocean object
             this._space = new objects.Space("space");
             this.addChild(this._space);
@@ -69,12 +79,12 @@ module levels {
             }
 
             // add core label
-            this._scoreLabel = new objects.Label("Score: " + core.score, "40px", "Broadway", "#7200ff", 450, 5, false);
+            this._scoreLabel = new objects.Label("Score: " + core.score, "40px", "BroadwayFont", "#7200ff", 450, 5, false);
             this._scoreLabel.textAlign = "center";
             this.addChild(this._scoreLabel);
 
             // add stub next level button
-            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 440, true);
+            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 430, true);
             this._stubNextLevelButton.on("click", this._nextLevel, this);
             this.addChild(this._stubNextLevelButton);
 
@@ -82,19 +92,19 @@ module levels {
             core.stage.addChild(this);
         }
 
-        public UpdateLevel():void {
+        public updateLevel():void {
             this._space.update();
             this._planet.update();
             this._player.update();
             this._collision.check(this._player, this._planet);
 
-            this._chargedClouds.forEach(asteroid => {
-                asteroid.update();
-                this._collision.check(this._player, asteroid);
-                this._chargedClouds.forEach(anotherAsteroid => {
-                    if (anotherAsteroid != asteroid &&
-                        asteroid.isColliding === anotherAsteroid.isColliding) {
-                        this._collision.check(asteroid, anotherAsteroid);
+            this._chargedClouds.forEach(cloud => {
+                cloud.update();
+                this._collision.check(this._player, cloud);
+                this._chargedClouds.forEach(anotherCloud => {
+                    if (anotherCloud != cloud &&
+                        cloud.isColliding === anotherCloud.isColliding) {
+                        this._collision.check(cloud, anotherCloud);
                     }
                 })
             });
@@ -109,7 +119,7 @@ module levels {
             }
 
             // stub test on score
-            if (core.score >= 300) {
+            if (core.score >= 800) {
                 createjs.Sound.stop();
                 core.play.levelNumber++;
                 core.play.ChangeLevel();

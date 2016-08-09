@@ -1,16 +1,19 @@
 /**
+ * Created by Anton on 2016-08-08.
+ */
+/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 8, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.2 - Version includes level 1 and 2
  */
 
 module objects {
     /**
-     * This is the ChargedCloud object used in the game
+     * This is the ChargedCloud object used in the level 1
      *
      * @export
      * @class ChargedCloud
@@ -18,25 +21,8 @@ module objects {
      */
     export class ChargedCloud extends GameObject {
         // PRIVATE INSTANCE VARIABLES ++++++++++++++++++++++++++++
-        private _dy:number;
-        private _dx:number;
 
         // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
-        get dy():number {
-            return this._dy;
-        }
-
-        set dy(newDy:number) {
-            this._dy = newDy;
-        }
-
-        get dx():number {
-            return this._dx;
-        }
-
-        set dx(newDx:number) {
-            this._dx = newDx;
-        }
 
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
@@ -94,8 +80,8 @@ module objects {
         }
 
         public reset():void {
-            this._dx = -Math.floor((Math.random() * 5) + 5); // horizontal speed
-            this._dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
+            this.dx = -Math.floor((Math.random() * 5) + 5); // horizontal speed
+            this.dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
             this.rotation = Math.floor(Math.random()*360);
             // get a random y location
             this.y = Math.floor((Math.random() * (480 - (this.width * 0.5))) + (this.width * 0.5));
@@ -111,8 +97,8 @@ module objects {
          * @returns {void}
          */
         public update():void {
-            this.y += this._dy;
-            this.x += this._dx;
+            this.y += this.dy;
+            this.x += this.dx;
             this._checkBounds();
             this.position.x = this.x;
             this.position.y = this.y;

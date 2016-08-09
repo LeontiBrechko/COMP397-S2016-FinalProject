@@ -1,11 +1,14 @@
 /**
+ * Created by Anton on 2016-08-08.
+ */
+/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 8, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.2 - Version includes level 1 and 2
  */
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -14,14 +17,21 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var levels;
 (function (levels) {
+    /**
+     * This is the Level3 class for the level with Boss
+     *
+     * @export
+     * @class Level3
+     * @extends {createjs.Bitmap}
+     */
     var Level3 = (function (_super) {
         __extends(Level3, _super);
         function Level3() {
             _super.call(this);
         }
-        Level3.prototype.InitializeLevel = function () {
+        Level3.prototype.initializeLevel = function () {
             // stub initialization
-            this._stubLabel = new objects.Label("This is level 3 stub.", "40px", "Broadway", "#7200ff", 320, 140);
+            this._stubLabel = new objects.Label("This is level 3 stub.", "40px", "BroadwayFont", "#7200ff", 320, 140);
             this._stubGameOverButton = new objects.Button("gameOverStub", 320, 300, true);
             this._stubGameOverButton.on("click", this._gameOver, this);
             this.addChild(this._stubLabel);
@@ -29,7 +39,7 @@ var levels;
             // add this scene to the global scene container
             core.stage.addChild(this);
         };
-        Level3.prototype.UpdateLevel = function () {
+        Level3.prototype.updateLevel = function () {
         };
         // EVENT HANDLERS ++++++++++++++++
         /**

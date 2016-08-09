@@ -3,11 +3,10 @@
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 8, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.2 - Version includes level 1 and 2
  */
-
 module scenes {
     export class Play extends objects.Scene {
         //  PRIVATE INSTANCE VARIABLES
@@ -26,14 +25,16 @@ module scenes {
             super();
         }
 
-        public Start():void {
+        public start():void {
             // start with the first level
             this._levelNumber = config.Level.LEVEL_1;
+            if (this._currentLevel != null)
+                this._currentLevel.removeAllChildren();
             this._currentLevel = new levels.Level1();
         }
 
-        public Update():void {
-            this._currentLevel.UpdateLevel();
+        public update():void {
+            this._currentLevel.updateLevel();
         }
 
         public ChangeLevel():void {

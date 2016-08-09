@@ -1,12 +1,16 @@
 /**
+ * Created by Anton on 2016-08-08.
+ */
+/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 8, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.2 - Version includes level 1 and 2
  */
+
 module objects {
     /**
      * This class represents a generic Game Object used in the game
@@ -22,6 +26,8 @@ module objects {
         private _name:string;
         private _position:Vector2;
         private _isColliding:boolean;
+        private _dx:number;
+        private _dy:number;
         public sound:createjs.AbstractSoundInstance;
 
         // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
@@ -74,6 +80,22 @@ module objects {
             this._isColliding = newState;
         }
 
+        get dy():number {
+            return this._dy;
+        }
+
+        set dy(newDy:number) {
+            this._dy = newDy;
+        }
+
+        get dx():number {
+            return this._dx;
+        }
+
+        set dx(newDx:number) {
+            this._dx = newDx;
+        }
+
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of the GameObject.
@@ -86,7 +108,7 @@ module objects {
 
             this._initialize(imageString);
 
-            this.start();
+            // this.start();
         }
 
         private _initialize(imageString:string):void {
@@ -107,9 +129,7 @@ module objects {
          * @method start
          * @returns {void}
          */
-        public start():void {
-
-        }
+        public abstract start():void;
 
         /**
          * This method updates the object's properties
@@ -119,11 +139,9 @@ module objects {
          * @method update
          * @returns {void}
          */
-        public update():void {
+        public abstract update():void;
 
-
-        }
-
+        public abstract reset():void;
 
     }
 }

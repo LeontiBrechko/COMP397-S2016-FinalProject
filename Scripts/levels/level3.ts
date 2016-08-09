@@ -1,14 +1,24 @@
 /**
+ * Created by Anton on 2016-08-08.
+ */
+/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 8, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.2 - Version includes level 1 and 2
  */
 
 module levels {
+    /**
+     * This is the Level3 class for the level with Boss
+     * 
+     * @export
+     * @class Level3
+     * @extends {createjs.Bitmap}
+     */
     export class Level3 extends objects.Level {
         //  PRIVATE INSTANCE VARIABLES
         private _stubLabel:objects.Label;
@@ -18,9 +28,9 @@ module levels {
             super();
         }
 
-        public InitializeLevel():void {
+        public initializeLevel():void {
             // stub initialization
-            this._stubLabel = new objects.Label("This is level 3 stub.", "40px", "Broadway", "#7200ff", 320, 140);
+            this._stubLabel = new objects.Label("This is level 3 stub.", "40px", "BroadwayFont", "#7200ff", 320, 140);
             this._stubGameOverButton = new objects.Button("gameOverStub", 320, 300, true);
             this._stubGameOverButton.on("click", this._gameOver, this);
             this.addChild(this._stubLabel);
@@ -30,7 +40,7 @@ module levels {
             core.stage.addChild(this);
         }
 
-        public UpdateLevel():void {
+        public updateLevel():void {
         }
 
         // EVENT HANDLERS ++++++++++++++++

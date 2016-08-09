@@ -654,7 +654,7 @@ this.createjs = this.createjs||{};
 	};
 
 	/**
-	 * Update the WebGL viewport. Note that this does NOT update the canvas element's width/height.
+	 * update the WebGL viewport. Note that this does NOT update the canvas element's width/height.
 	 * @method updateViewport
 	 * @param {Number} width
 	 * @param {Number} height
@@ -769,7 +769,7 @@ this.createjs = this.createjs||{};
 		// Create the vertices and indices buffers.
 		this._createBuffers(ctx);
 
-		// Update the viewport with the initial canvas dimensions:
+		// update the viewport with the initial canvas dimensions:
 		this.updateViewport(this._viewportWidth || this.canvas.width || 0, this._viewportHeight || this.canvas.height || 0);
 	};
 
@@ -1016,7 +1016,7 @@ this.createjs = this.createjs||{};
 			} else {
 				image = null;
 
-				// Update BitmapText instances:
+				// update BitmapText instances:
 				if (kid._spritestage_compatibility === 3) {
 					// TODO: this might change in the future to use a more general approach.
 					kid._updateText();
@@ -1110,7 +1110,7 @@ this.createjs = this.createjs||{};
 		ctx.bufferSubData(ctx.ARRAY_BUFFER, 0, this._vertices);
 		ctx.drawElements(ctx.TRIANGLES, numBoxes * SpriteStage.INDICES_PER_BOX, ctx.UNSIGNED_SHORT, 0);
 
-		// Reset draw vars:
+		// reset draw vars:
 		this._currentBoxIndex = -1;
 		this._drawTexture = null;
 	};

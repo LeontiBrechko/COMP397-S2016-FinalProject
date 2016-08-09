@@ -3,9 +3,9 @@
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 8, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.2 - Version includes level 1 and 2
  */
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -15,14 +15,16 @@ var __extends = (this && this.__extends) || function (d, b) {
 var objects;
 (function (objects) {
     /**
-     * This is the ChargedCloud object used in the game
+     * This is the GunBox pickable object used in the level 2
      *
      * @export
-     * @class ChargedCloud
+     * @class GunBox
      * @extends {createjs.Bitmap}
      */
     var GunBox = (function (_super) {
         __extends(GunBox, _super);
+        // PRIVATE INSTANCE VARIABLES ++++++++++++++++++++++++++++
+        // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of ChargedCloud.
@@ -34,27 +36,6 @@ var objects;
             _super.call(this, imageString);
             this.start();
         }
-        Object.defineProperty(GunBox.prototype, "dy", {
-            // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
-            get: function () {
-                return this._dy;
-            },
-            set: function (newDy) {
-                this._dy = newDy;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(GunBox.prototype, "dx", {
-            get: function () {
-                return this._dx;
-            },
-            set: function (newDx) {
-                this._dx = newDx;
-            },
-            enumerable: true,
-            configurable: true
-        });
         // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++
         /**
          * This method checks if the object has reached its boundaries
@@ -93,8 +74,8 @@ var objects;
         * @returns {void}
         */
         GunBox.prototype.reset = function () {
-            this._dx = -Math.floor((Math.random() * 5) + 7); // horizontal speed
-            this._dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
+            this.dx = -Math.floor((Math.random() * 5) + 7); // horizontal speed
+            this.dy = -Math.floor((Math.random() * 4) - 2); // vertical drift
             // get a random y location
             this.y = Math.floor((Math.random() * (480 - (this.width * 0.5))) + (this.width * 0.5));
             this.x = 640 + this.width;
@@ -108,8 +89,8 @@ var objects;
          * @returns {void}
          */
         GunBox.prototype.update = function () {
-            this.y += this._dy;
-            this.x += this._dx;
+            this.y += this.dy;
+            this.x += this.dx;
             this._checkBounds();
             this.position.x = this.x;
             this.position.y = this.y;
