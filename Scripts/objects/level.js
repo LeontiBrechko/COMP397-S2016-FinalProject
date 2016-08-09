@@ -3,9 +3,9 @@
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 8, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.2 - Version includes level 1 and 2
  */
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -14,6 +14,13 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var objects;
 (function (objects) {
+    /**
+     * This is abstract Level class for levels 1,2,3
+     *
+     * @export
+     * @class Level
+     * @extends {createjs.Bitmap}
+     */
     var Level = (function (_super) {
         __extends(Level, _super);
         function Level() {
