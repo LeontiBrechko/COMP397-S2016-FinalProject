@@ -1,7 +1,4 @@
 /**
- * Created by Anton on 2016-08-08.
- */
-/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
@@ -75,8 +72,7 @@ var managers;
                         }
                         // if zombie collides with island
                         if (object2.name === "planet") {
-                            // TODO: change to asset load
-                            object2.image.src = "Assets/images/infectedPlanet.png";
+                            object2.image = core.assets.getResult("infectedPlanet");
                             core.score += 100;
                             createjs.Sound.play("baaaa");
                         }

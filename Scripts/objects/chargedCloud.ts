@@ -101,7 +101,9 @@ module objects {
             this._checkBounds();
             this.position.x = this.x;
             this.position.y = this.y;
-            this.alpha ==1?this.alpha=0:this.alpha=1;
+            if ((createjs.Ticker.getTime() % 10) <5) {
+                this.alpha == 1 ? this.alpha = 0 : this.alpha = 1;
+            }
         }
     }
 }

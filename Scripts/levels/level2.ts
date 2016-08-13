@@ -1,7 +1,4 @@
 /**
- * Created by Anton on 2016-08-08.
- */
-/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
@@ -23,8 +20,8 @@ module levels {
         //  PRIVATE INSTANCE VARIABLES
         private _space:objects.Space;
         private _player:objects.Player;
-        private _fuelBoxes:objects.FuelBox[];
-        private _gunBoxes:objects.GunBox[];
+        private _fuelBoxes:objects.PickableItem[];
+        private _gunBoxes:objects.PickableItem[];
         private _spacemen:objects.Spaceman[];
         private _bullets:objects.Bullet[];
         private _collision:managers.Collision;
@@ -65,16 +62,16 @@ module levels {
             this.addChild(this._player);
 
             // fuel box array
-            this._fuelBoxes = new Array<objects.FuelBox>();
+            this._fuelBoxes = new Array<objects.PickableItem>();
             for (let i = 0; i < 2; i++) {
-                this._fuelBoxes.push(new objects.FuelBox("fuelBox"));
+                this._fuelBoxes.push(new objects.PickableItem("fuelBox"));
                 this.addChild(this._fuelBoxes[i]);
             }
 
             // gun box array
-            this._gunBoxes = new Array<objects.GunBox>();
+            this._gunBoxes = new Array<objects.PickableItem>();
             for (let i = 0; i < 2; i++) {
-                this._gunBoxes.push(new objects.GunBox("gunBox"));
+                this._gunBoxes.push(new objects.PickableItem("gunBox"));
                 this.addChild(this._gunBoxes[i]);
             }
 

@@ -1,7 +1,4 @@
 /**
- * Created by Anton on 2016-08-08.
- */
-/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
@@ -72,13 +69,13 @@ module managers {
                         if (object2.name === "fuelBox") {
                             if (core.fuelLevel < 5)
                                 core.fuelLevel++;
-                            (<objects.FuelBox>object2).reset();
+                            (<objects.PickableItem>object2).reset();
                             createjs.Sound.play("fuelPick");
                         }
 
                         if (object2.name === "gunBox") {
                             core.gunBullets += 5;
-                            (<objects.GunBox>object2).reset();
+                            (<objects.PickableItem>object2).reset();
 
                             //TODO: change the sound
                             createjs.Sound.play("gunPick");
@@ -86,8 +83,7 @@ module managers {
 
                         // if zombie collides with island
                         if (object2.name === "planet") {
-                            // TODO: change to asset load
-                            (<HTMLImageElement> object2.image).src = "Assets/images/infectedPlanet.png";
+                            object2.image = core.assets.getResult("infectedPlanet");
                             core.score += 100;
                             createjs.Sound.play("baaaa");
                         }
