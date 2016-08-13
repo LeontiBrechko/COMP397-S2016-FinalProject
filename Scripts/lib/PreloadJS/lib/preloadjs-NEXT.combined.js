@@ -1835,7 +1835,7 @@ this.createjs = this.createjs || {};
           if (lex() != "$") {
             abort();
           }
-          // Reset the parser state.
+          // reset the parser state.
           Index = Source = null;
           return callback && getClass.call(callback) == functionClass ? walk((value = {}, value[""] = result, value), "", callback) : result;
         };
@@ -5054,7 +5054,7 @@ this.createjs = this.createjs || {};
 			this._disposeItem(this._loadItemsById[n]);
 		}
 
-		//Reset the queue to its start state
+		//reset the queue to its start state
 		var a = [];
 		for (var i = 0, l = this._loadQueueBackup.length; i < l; i++) {
 			a.push(this._loadQueueBackup[i].getItem());
@@ -5266,7 +5266,7 @@ this.createjs = this.createjs || {};
 	};
 
 	/**
-	 * Start a LoadQueue that was created, but not automatically started.
+	 * start a LoadQueue that was created, but not automatically started.
 	 * @method load
 	 */
 	p.load = function () {
@@ -5524,7 +5524,7 @@ this.createjs = this.createjs || {};
 				item._loader = result;
 			}
 
-			// Update the extension in case the type changed:
+			// update the extension in case the type changed:
 			match = createjs.RequestUtils.parseURI(item.src);
 			if (match.extension != null) {
 				item.ext = match.extension;

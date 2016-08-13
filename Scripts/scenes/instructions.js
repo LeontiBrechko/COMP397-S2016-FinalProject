@@ -3,9 +3,9 @@
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 8, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.2 - Version includes level 1 and 2
  */
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -26,7 +26,7 @@ var scenes;
         /**
          *
          */
-        Instructions.prototype.Start = function () {
+        Instructions.prototype.start = function () {
             var gameInstructions = [];
             var instructionsArray = [
                 "You are a Zombie, infecting planets.",
@@ -40,25 +40,25 @@ var scenes;
             this._space = new objects.Space("space");
             this.addChild(this._space);
             for (var line = 0; line < instructionsArray.length; line++) {
-                gameInstructions[line] = new createjs.Text(instructionsArray[line], "Broadway");
+                gameInstructions[line] = new createjs.Text(instructionsArray[line], "BroadwayFont");
                 gameInstructions[line].x = 10;
                 gameInstructions[line].y = 20 + (2 * line);
-                this.addChild(new objects.Label(instructionsArray[line], "22px", "Broadway", "#7200ff", 300, 40 * line + 40, true));
+                this.addChild(new objects.Label(instructionsArray[line], "22px", "BroadwayFont", "#7200ff", 300, 40 * line + 40, true));
             }
             // Add Menu Label
             this.addChild(this._instructionsLabel);
             // add the start button
             this._startButton = new objects.Button("startButton", 320, 340, true);
             this.addChild(this._startButton);
-            this._returnButton = new objects.Button("returnButton", 320, 440, true);
+            this._returnButton = new objects.Button("returnButton", 320, 390, true);
             this.addChild(this._returnButton);
-            // Start button event listener
+            // start button event listener
             this._startButton.on("click", this._startButtonClick, this);
             this._returnButton.on("click", this._returnButtonClick, this);
             // add this scene to the global scene container
             core.stage.addChild(this);
         };
-        Instructions.prototype.Update = function () {
+        Instructions.prototype.update = function () {
             this._space.update();
             // scene updates happen here...
         };

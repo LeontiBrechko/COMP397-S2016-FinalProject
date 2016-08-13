@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'BroadwayFont';
+    src: url('..Assets/font/broadway-webfont.eot');
+    src: url('../Assets/font/broadway-webfont.woff2') format('woff2'),
+         url('../Assets/font/broadway-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 
 html {
     height: 100%;
