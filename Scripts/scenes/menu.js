@@ -30,7 +30,7 @@ var scenes;
             this._space = new objects.Space("space");
             this.addChild(this._space);
             // Add Menu Label
-            this._menuLabel = new objects.Label("FLYING DEAD", "80px", "BroadwayFont", "#7200ff", 315, 140);
+            this._menuLabel = new objects.Label("FLYING DEAD", "80px", "BroadwayFont", "#7200ff", 320, 140, true);
             this.addChild(this._menuLabel);
             // add the start button
             this._startButton = new objects.Button("startButton", 320, 340, true);
@@ -52,7 +52,9 @@ var scenes;
         };
         Menu.prototype.update = function () {
             this._space.update();
-            this._menuLabel.alpha == 1 ? this._menuLabel.alpha = 0 : this._menuLabel.alpha = 1;
+            if ((createjs.Ticker.getTime() % 10) < 5) {
+                this._menuLabel.alpha == 1 ? this._menuLabel.alpha = 0 : this._menuLabel.alpha = 1;
+            }
             // scene updates happen here...
         };
         // EVENT HANDLERS ++++++++++++++++

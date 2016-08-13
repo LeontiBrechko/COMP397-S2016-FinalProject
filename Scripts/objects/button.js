@@ -1,7 +1,4 @@
 /**
- * Created by Anton on 2016-08-08.
- */
-/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440

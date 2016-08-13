@@ -1,7 +1,4 @@
 /**
- * Created by Anton on 2016-08-08.
- */
-/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
@@ -50,13 +47,13 @@ var levels;
             // fuel box array
             this._fuelBoxes = new Array();
             for (var i = 0; i < 2; i++) {
-                this._fuelBoxes.push(new objects.FuelBox("fuelBox"));
+                this._fuelBoxes.push(new objects.PickableItem("fuelBox"));
                 this.addChild(this._fuelBoxes[i]);
             }
             // gun box array
             this._gunBoxes = new Array();
             for (var i = 0; i < 2; i++) {
-                this._gunBoxes.push(new objects.GunBox("gunBox"));
+                this._gunBoxes.push(new objects.PickableItem("gunBox"));
                 this.addChild(this._gunBoxes[i]);
             }
             // spaceman array

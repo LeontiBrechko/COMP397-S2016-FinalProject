@@ -8,8 +8,7 @@
 /// <reference path="../objects/planet.ts"/>
 /// <reference path="../objects/player.ts"/>
 /// <reference path="../objects/chargedCloud.ts"/>
-/// <reference path="../objects/fuelBox.ts"/>
-/// <reference path="../objects/gunBox.ts"/>
+/// <reference path="../objects/pickableItem.ts"/>
 /// <reference path="../objects/vector2.ts"/>
 /// <reference path="../objects/gameobject.ts"/>
 /// <reference path="../managers/collision.ts"/>

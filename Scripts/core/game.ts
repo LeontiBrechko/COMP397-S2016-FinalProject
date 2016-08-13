@@ -1,7 +1,4 @@
 /**
- * Created by Anton on 2016-08-08.
- */
-/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
@@ -28,10 +25,12 @@ namespace core {
     export let score:number = 0;
     // export let highScore:number = 0;
     export let startingLives:number = 5;
+    export let robotStartingLives:number = 5;
     export let currentLives:number = startingLives;
+    export let robotCurrentLives:number = startingLives;
     export let fuelLevel:number = 5;
     export let gunBullets:number = 0;
-    export let gameSpeed:number = 2000;
+    export let gameSpeed:number = 1200;
     export let themeSound:createjs.AbstractSoundInstance;
     let startButton:objects.Button; // reference to our button class
 
@@ -64,10 +63,12 @@ namespace core {
         {id: "chargedCloud", src: "Assets/images/chargedCloud.png"},
         {id: "fuelBox", src: "Assets/images/fuel.png"},
         {id: "gunBox", src: "Assets/images/gun.png"},
+        {id: "liveBox", src: "Assets/images/liveBox.png"},
         {id: "live", src: "Assets/images/live.png"},
         {id: "spaceman", src: "Assets/images/spaceman.png"},
         {id: "bullet", src: "Assets/images/bullet.png"},
-        {id: "levelProgress", src: "Assets/images/levelProgress.png"},
+        {id: "robot", src: "Assets/images/robot.png"},
+        {id: "levelProgress", src: "Assets/images/levelProgress.png"},       
         // sounds
         {id: "baaaa", src: "Assets/audio/baaaa.wav"},
         {id: "explosion", src: "Assets/audio/explosion.wav"},

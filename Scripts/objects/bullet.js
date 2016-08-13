@@ -1,7 +1,4 @@
 /**
- * Created by Anton on 2016-08-08.
- */
-/**
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
@@ -29,6 +26,7 @@ var objects;
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         function Bullet(imageString) {
             _super.call(this, imageString);
+            this.alpha = 0.4;
             this.start();
         }
         Object.defineProperty(Bullet.prototype, "inFlight", {
@@ -48,6 +46,7 @@ var objects;
             this.x = this.position.x;
             this.y = this.position.y;
             this.inFlight = false;
+            this.dy = 0;
         };
         Bullet.prototype._checkBounds = function () {
             if (this.position.x <= -this.width) {
@@ -70,6 +69,7 @@ var objects;
         Bullet.prototype.update = function () {
             if (this.inFlight) {
                 this.x += this.dx;
+                this.y += this.dy;
                 this.position.x = this.x;
                 this.position.y = this.y;
                 this._checkBounds();
