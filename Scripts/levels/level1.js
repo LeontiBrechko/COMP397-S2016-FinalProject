@@ -27,7 +27,7 @@ var levels;
             _super.call(this);
         }
         Level1.prototype._updateScoreBoard = function () {
-            for (var i = core.startingLives - 1; i > core.currentLives - 1; i--) {
+            for (var i = core.gameStartingLives - 1; i > Math.max(core.currentLives - 1, 0); i--) {
                 this._liveIcons[i].visible = false;
             }
             this._scoreLabel.text = "Score: " + core.score;
@@ -54,7 +54,7 @@ var levels;
             this._collision = new managers.Collision();
             // lives array
             this._liveIcons = new Array();
-            for (var i = 0; i < core.startingLives; i++) {
+            for (var i = 0; i < core.gameStartingLives; i++) {
                 this._liveIcons.push(new createjs.Bitmap(core.assets.getResult("live")));
                 this._liveIcons[i].x = 10 + i * this._liveIcons[0].getBounds().width;
                 this._liveIcons[i].y = 5;

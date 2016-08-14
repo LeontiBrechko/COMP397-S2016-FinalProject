@@ -12,16 +12,17 @@ var core;
 (function (core) {
     // make a reference to the canvas element
     var canvas = document.getElementById("canvas");
-    // score, startingLives and currentLives variables
+    // score, gameStartingLives and currentLives variables
     core.score = 0;
-    // export let highScore:number = 0;
-    core.startingLives = 5;
-    core.robotStartingLives = 5;
-    core.currentLives = core.startingLives;
-    core.robotCurrentLives = core.startingLives;
+    core.gameStartingLives = 5;
+    core.robotStartingLives = 10;
+    core.currentLives = core.gameStartingLives;
+    core.robotCurrentLives = core.robotStartingLives;
     core.fuelLevel = 5;
-    core.gunBullets = 0;
+    core.bulletsCollected = 0;
+    core.currentGunBullets = 0;
     core.gameSpeed = 1200;
+    core.wonGame = false;
     var startButton; // reference to our button class
     // declare scene variables
     var currentScene;
@@ -43,6 +44,7 @@ var core;
         { id: "planet", src: "Assets/images/planet.png" },
         { id: "infectedPlanet", src: "Assets/images/infectedPlanet.png" },
         { id: "zombie", src: "Assets/images/zombie.png" },
+        {id: "shootingZombie", src: "Assets/images/shootingZombie.png"},
         { id: "zombieIcon", src: "Assets/images/zombieIcon.png" },
         { id: "chargedCloud", src: "Assets/images/chargedCloud.png" },
         { id: "fuelBox", src: "Assets/images/fuel.png" },
@@ -51,7 +53,9 @@ var core;
         { id: "live", src: "Assets/images/live.png" },
         { id: "spaceman", src: "Assets/images/spaceman.png" },
         { id: "bullet", src: "Assets/images/bullet.png" },
+        {id: "playerBullet", src: "Assets/images/playerBullet.png"},
         { id: "robot", src: "Assets/images/robot.png" },
+        {id: "robotLive", src: "Assets/images/robotLive.png"},
         { id: "levelProgress", src: "Assets/images/levelProgress.png" },
         // sounds
         { id: "baaaa", src: "Assets/audio/baaaa.wav" },
@@ -63,6 +67,8 @@ var core;
         { id: "laserHit", src: "Assets/audio/laserHit.wav" },
         { id: "taDaFinal", src: "Assets/audio/taDaFinal.wav" },
         { id: "pew", src: "Assets/audio/pew.wav" },
+        {id: "gotLive", src: "Assets/audio/gotLive.mp3"},
+        {id: "taDaFinal", src: "Assets/audio/taDaFinal.wav"},
         // stub
         { id: "gameOverStub", src: "Assets/images/gameOverStub.png" },
         { id: "nextLevelStub", src: "Assets/images/nextLevelStub.png" }

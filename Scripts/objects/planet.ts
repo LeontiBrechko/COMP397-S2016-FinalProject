@@ -57,7 +57,7 @@ module objects {
          */
         private _checkBounds():void {
             if (this.x <= (0 - this.width + this.dx)) {
-                this.image = core.assets.getResult("planet");
+                this.image = <HTMLImageElement>  core.assets.getResult("planet");
                 this.reset();
             }
         }
@@ -79,7 +79,7 @@ module objects {
             this.regY = this.height * 0.5;
             this.reset();
             this.dx = -5; // 5px per frame down
-            this.image = core.assets.getResult("planet");
+            this.image = <HTMLImageElement> core.assets.getResult("planet");
         }
 
         /**

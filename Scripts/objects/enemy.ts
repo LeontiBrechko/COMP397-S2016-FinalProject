@@ -7,40 +7,42 @@
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
  * @version 0.2 - Version includes level 1 and 2
  */
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var objects;
-(function (objects) {
+
+module objects {
     /**
      * This is the enemy object used in the game
-     *
+     * 
      * @export
-     * @class Spaceman
+     * @class Enemy
      * @extends {createjs.Bitmap}
      */
-    var Spaceman = (function (_super) {
-        __extends(Spaceman, _super);
+    export class Enemy extends objects.GameObject {
+        // PRIVATE INSTANCE VARIABLES ++++++++++++++++++++++++++++
+        private _upperLeftBoundary:createjs.Point;
+        private _lowerRightBoundary:createjs.Point;
+        private _timeToFire:number;
+
+        // PUBLIC PROPERTIES
+        
+        get timeToFire():number {
+            return this._timeToFire;
+        }
+        
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
-        function Spaceman(imageString, upperLeftBoundary, lowerRightBoundary) {
-            _super.call(this, imageString);
+
+        constructor(imageString:string, upperLeftBoundary:createjs.Point, lowerRightBoundary:createjs.Point) {
+            super(imageString);
+
             if (upperLeftBoundary.x >= lowerRightBoundary.x
                 || upperLeftBoundary.y >= lowerRightBoundary.y)
                 throw new DOMException();
+
             this._upperLeftBoundary = upperLeftBoundary;
             this._lowerRightBoundary = lowerRightBoundary;
+
             this.start();
         }
-        Object.defineProperty(Spaceman.prototype, "timeToFire", {
-            // PUBLIC PROPERTIES
-            get: function () {
-                return this._timeToFire;
-            },
-            enumerable: true,
-            configurable: true
-        });
+
         // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++
         /**
          * Resets the object and sets the x and y locations
@@ -49,14 +51,15 @@ var objects;
          * @method _reset
          * @returns {void}
          */
-        Spaceman.prototype.reset = function () {
+        public reset():void {
             this.x = this._lowerRightBoundary.x + this.width * 0.5;
             this.y = (this._upperLeftBoundary.y + this._lowerRightBoundary.y) * 0.5;
             this.position.x = this.x;
             this.position.y = this.y;
             this.dx = -5;
             this.dy = 0;
-        };
+        }
+
         /**
          * This method checks if the object has reached its boundaries
          *
@@ -64,7 +67,7 @@ var objects;
          * @method _checkBounds
          * @returns {void}
          */
-        Spaceman.prototype._checkBounds = function () {
+        private _checkBounds():void {
             if (this.x + this.width * 0.5 > this._lowerRightBoundary.x
                 || this.x - this.width * 0.5 < this._upperLeftBoundary.x) {
                 this.dx *= -1;
@@ -75,8 +78,10 @@ var objects;
                 this.dy *= -1;
                 this.y += this.dy;
             }
-        };
+        }
+
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++
+
         /**
          * This method is used to initialize public properties
          * and private instance variables
@@ -85,13 +90,14 @@ var objects;
          * @method start
          * @returns {void}
          */
-        Spaceman.prototype.start = function () {
+        public start():void {
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
             this.reset();
-        };
+        }
+
         /**
          * This method updates the object's properties
          * every time it's called
@@ -100,7 +106,7 @@ var objects;
          * @method update
          * @returns {void}
          */
-        Spaceman.prototype.update = function () {
+        public update():void {
             if (this.x <= this._lowerRightBoundary.x - this.width * 0.5) {
                 if (createjs.Ticker.getTime(true) % core.gameSpeed <= 19) {
                     this.dx = Math.floor(Math.random() * 10 - 5);
@@ -112,14 +118,10 @@ var objects;
                 this._checkBounds();
                 this.position.x = this.x;
                 this.position.y = this.y;
-            }
-            else {
+            } else {
                 this.x += this.dx;
                 this.position.x = this.x;
             }
-        };
-        return Spaceman;
-    }(objects.GameObject));
-    objects.Spaceman = Spaceman;
-})(objects || (objects = {}));
-//# sourceMappingURL=spaceman.js.map
+        }
+    }
+}

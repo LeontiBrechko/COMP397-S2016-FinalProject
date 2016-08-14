@@ -34,7 +34,7 @@ module levels {
         }
 
         private _updateScoreBoard() {
-            for (let i = core.startingLives - 1; i > core.currentLives - 1; i--) {
+            for (let i = core.gameStartingLives - 1; i > Math.max(core.currentLives - 1, 0); i--) {
                 this._liveIcons[i].visible = false;
             }
             this._scoreLabel.text = "Score: " + core.score;
@@ -68,7 +68,7 @@ module levels {
 
             // lives array
             this._liveIcons = new Array<createjs.Bitmap>();
-            for (let i = 0; i < core.startingLives; i++) {
+            for (let i = 0; i < core.gameStartingLives; i++) {
                 this._liveIcons.push(new createjs.Bitmap(core.assets.getResult("live")));
                 this._liveIcons[i].x = 10 + i * this._liveIcons[0].getBounds().width;
                 this._liveIcons[i].y = 5;

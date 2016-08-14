@@ -27,14 +27,15 @@ var levels;
             _super.call(this);
         }
         Level2.prototype._updateScoreBoard = function () {
-            for (var i = core.startingLives - 1; i > core.currentLives - 1; i--) {
+            for (var i = core.gameStartingLives - 1; i > Math.max(0, core.currentLives - 1); i--) {
                 this._liveIcons[i].visible = false;
             }
             this._fuelLevelLabel.text = "Fuel Level:" + core.fuelLevel + "/5";
-            this._bulletLabel.text = "Bullets:" + core.gunBullets;
+            this._bulletLabel.text = "Bullets:" + core.currentGunBullets;
         };
         Level2.prototype.initializeLevel = function () {
             this._levelTotalTime = 15000;
+            core.levelStartingLives = core.currentLives;
             core.fuelLevel = 5;
             if (core.themeSound.playState != "playSucceeded")
                 core.themeSound.play();
@@ -59,7 +60,7 @@ var levels;
             // spaceman array
             this._spacemen = new Array();
             for (var i = 0; i < 2; i++) {
-                this._spacemen.push(new objects.Spaceman("spaceman", new createjs.Point(400, i * 240), new createjs.Point(640, (i + 1) * 240)));
+                this._spacemen.push(new objects.Enemy("spaceman", new createjs.Point(400, i * 240), new createjs.Point(640, (i + 1) * 240)));
                 this.addChild(this._spacemen[i]);
             }
             // bullet array
@@ -75,12 +76,12 @@ var levels;
             this._fuelLevelLabel.textAlign = "right";
             this.addChild(this._fuelLevelLabel);
             this._bulletLabel =
-                new objects.Label("Fuel Level: " + core.gunBullets, "40px", "BroadwayFont", "#7200ff", 620, 35, false);
+                new objects.Label("Bullets: " + core.currentGunBullets, "40px", "BroadwayFont", "#7200ff", 620, 35, false);
             this._bulletLabel.textAlign = "right";
             this.addChild(this._bulletLabel);
             // lives array
             this._liveIcons = new Array();
-            for (var i = 0; i < core.startingLives; i++) {
+            for (var i = 0; i < core.gameStartingLives; i++) {
                 this._liveIcons.push(new createjs.Bitmap(core.assets.getResult("live")));
                 this._liveIcons[i].x = 10 + i * this._liveIcons[0].getBounds().width;
                 this._liveIcons[i].y = 5;
@@ -138,7 +139,7 @@ var levels;
                 if (createjs.Ticker.getTime() % spaceman.timeToFire <= 19) {
                     for (var bullet in _this._bullets) {
                         if (!_this._bullets[bullet].inFlight) {
-                            _this._bullets[bullet].fire(spaceman.position);
+                            _this._bullets[bullet].fire(new objects.Vector2(spaceman.position.x, spaceman.position.y));
                             break;
                         }
                     }

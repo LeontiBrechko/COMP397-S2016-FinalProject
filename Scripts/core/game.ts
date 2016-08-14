@@ -21,16 +21,19 @@ namespace core {
     // create a reference to a stage container
     export let stage:createjs.Stage;
 
-    // score, startingLives and currentLives variables
+    // score, gameStartingLives and currentLives variables
     export let score:number = 0;
-    // export let highScore:number = 0;
-    export let startingLives:number = 5;
-    export let robotStartingLives:number = 5;
-    export let currentLives:number = startingLives;
-    export let robotCurrentLives:number = startingLives;
+    export let gameStartingLives:number = 5;
+    export let levelStartingLives:number;
+    export let robotStartingLives:number = 10;
+    export let currentLives:number = gameStartingLives;
+    export let robotCurrentLives:number = robotStartingLives;
     export let fuelLevel:number = 5;
-    export let gunBullets:number = 0;
+    export let bulletsCollected:number = 0;
+    export let currentGunBullets:number = 0;
+    export let levelStartingBullets:number;
     export let gameSpeed:number = 1200;
+    export let wonGame:boolean = false;
     export let themeSound:createjs.AbstractSoundInstance;
     let startButton:objects.Button; // reference to our button class
 
@@ -59,6 +62,7 @@ namespace core {
         {id: "planet", src: "Assets/images/planet.png"},
         {id: "infectedPlanet", src: "Assets/images/infectedPlanet.png"},
         {id: "zombie", src: "Assets/images/zombie.png"},
+        {id: "shootingZombie", src: "Assets/images/shootingZombie.png"},
         {id: "zombieIcon", src: "Assets/images/zombieIcon.png"},
         {id: "chargedCloud", src: "Assets/images/chargedCloud.png"},
         {id: "fuelBox", src: "Assets/images/fuel.png"},
@@ -67,7 +71,9 @@ namespace core {
         {id: "live", src: "Assets/images/live.png"},
         {id: "spaceman", src: "Assets/images/spaceman.png"},
         {id: "bullet", src: "Assets/images/bullet.png"},
+        {id: "playerBullet", src: "Assets/images/playerBullet.png"},
         {id: "robot", src: "Assets/images/robot.png"},
+        {id: "robotLive", src: "Assets/images/robotLive.png"},
         {id: "levelProgress", src: "Assets/images/levelProgress.png"},       
         // sounds
         {id: "baaaa", src: "Assets/audio/baaaa.wav"},
@@ -79,6 +85,8 @@ namespace core {
         {id: "laserHit", src: "Assets/audio/laserHit.wav"},
         {id: "taDaFinal", src: "Assets/audio/taDaFinal.wav"},
         {id: "pew", src: "Assets/audio/pew.wav"},
+        {id: "gotLive", src: "Assets/audio/gotLive.mp3"},
+        {id: "taDaFinal", src: "Assets/audio/taDaFinal.wav"},
         // stub
         {id: "gameOverStub", src: "Assets/images/gameOverStub.png"},
         {id: "nextLevelStub", src: "Assets/images/nextLevelStub.png"}

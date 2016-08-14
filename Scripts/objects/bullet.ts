@@ -32,7 +32,7 @@ module objects {
 
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         constructor(imageString:string) {
-            super(imageString)
+            super(imageString);
             this.alpha = 0.4;
             this.start();
         }
@@ -48,7 +48,7 @@ module objects {
         }
 
         private  _checkBounds():void {
-            if (this.position.x <= -this.width) {
+            if (this.position.x <= -this.width || this.position.x >= 640 + this.width) {
                 this.reset();
             }
         }
@@ -64,17 +64,15 @@ module objects {
 
 
         public start():void {
-            this._defaultPosition = new Vector2(1000, 1000);
+            this._defaultPosition = new Vector2(500, 1000);
             this.dx = -10;
             this.reset();
         }
 
         public update():void {
             if (this.inFlight) {
-                this.x += this.dx;
-                this.y += this.dy;
-                this.position.x = this.x;
-                this.position.y = this.y;
+                this.position.x = this.x += this.dx;
+                this.position.y = this.y += this.dy;
                 this._checkBounds();
             }
         }

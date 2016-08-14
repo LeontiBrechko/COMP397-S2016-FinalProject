@@ -28,66 +28,83 @@ var levels;
             this.on("click", this._shoot);
         }
         Level3.prototype._updateScoreBoard = function () {
-            for (var i = core.startingLives - 1; i > core.currentLives - 1; i--) {
-                this._liveIcons[i].visible = false;
+            for (var i = core.gameStartingLives - 1; i > Math.max(core.currentLives - 1, 0); i--) {
+                this._playerLiveIcons[i].visible = false;
+            }
+            for (var i = 0; i < core.currentLives; i++) {
+                this._playerLiveIcons[i].visible = true;
             }
             for (var i = core.robotStartingLives - 1; i > core.robotCurrentLives - 1; i--) {
                 this._robotLiveIcons[i].visible = false;
             }
-            this._bulletLabel.text = "Bullets:" + core.gunBullets;
+            this._bulletLabel.text = "Bullets:" + core.currentGunBullets;
         };
         Level3.prototype.initializeLevel = function () {
-            this._levelTotalTime = 15000;
             if (core.themeSound.playState != "playSucceeded")
                 core.themeSound.play();
+            core.levelStartingLives = core.currentLives;
+            core.levelStartingBullets = core.bulletsCollected;
+            this._timeToGo = createjs.Ticker.getTime() + 5000;
             // space object
             this._space = new objects.Space("space");
             this.addChild(this._space);
             // player object
-            this._player = new objects.Player("zombie");
-            this.addChild(this._player);
+            this._player = new objects.Player("shootingZombie");
             // fuel box array
             this._liveBoxes = new Array();
             for (var i = 0; i < 2; i++) {
                 this._liveBoxes.push(new objects.PickableItem("liveBox"));
-                this.addChild(this._liveBoxes[i]);
             }
             // gun box array
             this._gunBoxes = new Array();
             for (var i = 0; i < 2; i++) {
                 this._gunBoxes.push(new objects.PickableItem("gunBox"));
-                this.addChild(this._gunBoxes[i]);
             }
             // spaceman array
-            this._robot = new objects.Spaceman("robot", new createjs.Point(320, 0), new createjs.Point(640, 480));
-            this.addChild(this._robot);
+            this._robot = new objects.Enemy("robot", new createjs.Point(320, 0), new createjs.Point(640, 480));
             // bullet array
-            this._bullets = new Array();
-            for (var i = 0; i < 50; i++) {
-                this._bullets.push(new objects.Bullet("bullet"));
-                this.addChild(this._bullets[i]);
+            this._robotBullets = new Array();
+            for (var i = 0; i < 20; i++) {
+                this._robotBullets.push(new objects.Bullet("bullet"));
+            }
+            // player bullets
+            this._playerBullets = new Array();
+            for (var i = 0; i < 20; i++) {
+                this._playerBullets.push(new objects.Bullet("playerBullet"));
+                this._playerBullets[i].dx = 10;
             }
             // include a collision managers
             this._collision = new managers.Collision();
             this._bulletLabel =
-                new objects.Label("Fuel Level: " + core.gunBullets, "40px", "BroadwayFont", "#7200ff", 620, 35, false);
+                new objects.Label("Fuel Level: " + core.currentGunBullets, "40px", "BroadwayFont", "#7200ff", 620, 35, false);
             this._bulletLabel.textAlign = "right";
-            this.addChild(this._bulletLabel);
-            // lives array
-            this._liveIcons = new Array();
-            for (var i = 0; i < core.startingLives; i++) {
-                this._liveIcons.push(new createjs.Bitmap(core.assets.getResult("live")));
-                this._liveIcons[i].x = 10 + i * this._liveIcons[0].getBounds().width;
-                this._liveIcons[i].y = 5;
-                this.addChild(this._liveIcons[i]);
+            // player lives array
+            this._playerLiveIcons = new Array();
+            for (var i = 0; i < core.gameStartingLives; i++) {
+                this._playerLiveIcons.push(new createjs.Bitmap(core.assets.getResult("live")));
+                this._playerLiveIcons[i].x = 10 + i * this._playerLiveIcons[0].getBounds().width;
+                this._playerLiveIcons[i].y = 5;
             }
+            // robot lives array
+            this._robotLiveIcons = new Array();
+            for (var i = 0; i < core.robotCurrentLives; i++) {
+                this._robotLiveIcons.push(new createjs.Bitmap(core.assets.getResult("robotLive")));
+                this._robotLiveIcons[i].x = 598 - i * this._robotLiveIcons[0].getBounds().width;
+                this._robotLiveIcons[i].y = 5;
+            }
+            // preparation label
+            this._preparationLabel = new objects.Label("GET READY TO SHOOT!", "40px", "BroadwayFont", "#7200ff", 320, 240, true);
+            this.addChild(this._preparationLabel);
             // add this scene to the global scene container
             core.stage.addChild(this);
-            this._levelStartTime = createjs.Ticker.getTime();
         };
         Level3.prototype.updateLevel = function () {
             var _this = this;
             this._space.update();
+            if (createjs.Ticker.getTime() < this._timeToGo)
+                return;
+            this.removeChild(this._preparationLabel);
+            this._addAllObjects();
             this._player.update();
             this._liveBoxes.forEach(function (fuelBox) {
                 fuelBox.update();
@@ -117,23 +134,22 @@ var levels;
             var x = 0, k = 0;
             this._robot.update();
             if (createjs.Ticker.getTime() % this._robot.timeToFire <= 19) {
-                for (var bullet in this._bullets) {
-                    if (!this._bullets[bullet].inFlight) {
+                for (var bullet in this._robotBullets) {
+                    if (!this._robotBullets[bullet].inFlight) {
                         x++;
                         switch (x) {
                             case 1:
                                 k = 1;
-                                this._bullets[bullet].dy = 2;
                                 break;
                             case 2:
                                 k = 0;
                                 break;
                             case 3:
                                 k = -1;
-                                this._bullets[bullet].dy = +-2;
                                 break;
                         }
-                        this._bullets[bullet].fire(new objects.Vector2(this._robot.position.x, this._robot.position.y - k * 38));
+                        this._robotBullets[bullet].dy = 2 * k;
+                        this._robotBullets[bullet].fire(new objects.Vector2(this._robot.position.x, this._robot.position.y - k * 38));
                         if (x < 3)
                             continue;
                         else
@@ -141,10 +157,16 @@ var levels;
                     }
                 }
             }
-            this._bullets.forEach(function (bullet) {
+            this._robotBullets.forEach(function (bullet) {
                 bullet.update();
                 if (bullet.inFlight) {
                     _this._collision.check(_this._player, bullet);
+                }
+            });
+            this._playerBullets.forEach(function (bullet) {
+                bullet.update();
+                if (bullet.inFlight) {
+                    _this._collision.check(_this._robot, bullet);
                 }
             });
             this._updateScoreBoard();
@@ -154,30 +176,42 @@ var levels;
                 core.scene = config.Scene.OVER;
                 core.changeScene();
             }
-            // updating fuel level
-            /*
-             if (createjs.Ticker.getTime() - this._levelStartTime <= this._levelTotalTime) {
-             console.log("level 2 is done");
-             createjs.Sound.stop();
-             core.play.levelNumber++;
-             core.play.ChangeLevel();
-             }
-             */
+            if (core.robotCurrentLives < 1) {
+                createjs.Sound.stop();
+                createjs.Sound.play("taDaFinal");
+                core.scene = config.Scene.OVER;
+                core.wonGame = true;
+                core.changeScene();
+            }
+        };
+        Level3.prototype._addAllObjects = function () {
+            this.addChild(this._player);
+            for (var i = 0; i < 2; i++) {
+                this.addChild(this._liveBoxes[i]);
+                this.addChild(this._gunBoxes[i]);
+            }
+            this.addChild(this._robot);
+            for (var i = 0; i < 20; i++) {
+                this.addChild(this._robotBullets[i]);
+                this.addChild(this._playerBullets[i]);
+            }
+            this.addChild(this._bulletLabel);
+            for (var i = 0; i < core.gameStartingLives; i++) {
+                this.addChild(this._playerLiveIcons[i]);
+            }
+            for (var i = 0; i < core.robotCurrentLives; i++) {
+                this.addChild(this._robotLiveIcons[i]);
+            }
         };
         // EVENT HANDLERS ++++++++++++++++
-        /**
-         * Simulates next level continuation
-         *
-         * @param event
-         * @private
-         */
-        Level3.prototype._nextLevel = function (event) {
-            createjs.Sound.stop();
-            core.play.levelNumber++;
-            core.play.ChangeLevel();
-        };
         Level3.prototype._shoot = function (event) {
-            //shoot stub
+            for (var bullet in this._playerBullets) {
+                if (core.currentGunBullets > 0 && !this._playerBullets[bullet].inFlight) {
+                    this._playerBullets[bullet].fire(new objects.Vector2(this._player.position.x, this._player.position.y));
+                    core.currentGunBullets -= 1;
+                    break;
+                }
+            }
         };
         return Level3;
     }(objects.Level));

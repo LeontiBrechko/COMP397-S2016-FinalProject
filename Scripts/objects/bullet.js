@@ -49,7 +49,7 @@ var objects;
             this.dy = 0;
         };
         Bullet.prototype._checkBounds = function () {
-            if (this.position.x <= -this.width) {
+            if (this.position.x <= -this.width || this.position.x >= 640 + this.width) {
                 this.reset();
             }
         };
@@ -62,16 +62,14 @@ var objects;
             createjs.Sound.play("pew");
         };
         Bullet.prototype.start = function () {
-            this._defaultPosition = new objects.Vector2(1000, 1000);
+            this._defaultPosition = new objects.Vector2(500, 1000);
             this.dx = -10;
             this.reset();
         };
         Bullet.prototype.update = function () {
             if (this.inFlight) {
-                this.x += this.dx;
-                this.y += this.dy;
-                this.position.x = this.x;
-                this.position.y = this.y;
+                this.position.x = this.x += this.dx;
+                this.position.y = this.y += this.dy;
                 this._checkBounds();
             }
         };

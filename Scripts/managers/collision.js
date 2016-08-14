@@ -32,8 +32,8 @@ var managers;
         Collision.prototype.check = function (object1, object2) {
             if (objects.Vector2.distance(object1.position, object2.position)
                 <= (object1.halfHeight + object2.halfHeight)) {
-                // if first object is not a player
-                if (object1.name !== "zombie") {
+                if (object1.name !== "zombie" && object1.name !== "shootingZombie" && object1.name !== "robot") {
+                    // if first object is not a player
                     var tempDx = object1.dx;
                     var tempDy = object1.dy;
                     object1.dx = object2.dx;
@@ -50,7 +50,20 @@ var managers;
                             object2.x += (object1.width - (object2.x - object1.x) + 1);
                     }
                 }
+                else if (object1.name === "robot") {
+                    // if first object is robot
+                    if (!object2.isColliding) {
+                        object2.isColliding = true;
+                        // if robot collides with player bullet
+                        if (object2.name === "playerBullet") {
+                            object2.reset();
+                            core.robotCurrentLives--;
+                            createjs.Sound.play("explosion");
+                        }
+                    }
+                }
                 else {
+                    // if first object is a player
                     if (!object2.isColliding) {
                         object2.isColliding = true;
                         // if zombie collides with cloud
@@ -65,9 +78,9 @@ var managers;
                             createjs.Sound.play("fuelPick");
                         }
                         if (object2.name === "gunBox") {
-                            core.gunBullets += 5;
+                            core.currentGunBullets += 5;
+                            core.bulletsCollected += 5;
                             object2.reset();
-                            //TODO: change the sound
                             createjs.Sound.play("gunPick");
                         }
                         // if zombie collides with island
@@ -82,10 +95,17 @@ var managers;
                             object2.reset();
                             createjs.Sound.play("laserHit");
                         }
+                        // if zombie collides with live box
+                        if (object2.name === "liveBox") {
+                            if (core.currentLives < 5)
+                                core.currentLives += 1;
+                            object2.reset();
+                            createjs.Sound.play("gotLive");
+                        }
                     }
                 }
             }
-            else if (object1.name === "zombie") {
+            else if (object1.name === "zombie" || object1.name === "shootingZombie" || object1.name === "robot") {
                 object2.isColliding = false;
             }
         };
