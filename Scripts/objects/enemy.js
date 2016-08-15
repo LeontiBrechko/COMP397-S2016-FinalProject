@@ -33,7 +33,6 @@ var objects;
             this._lowerRightBoundary = lowerRightBoundary;
             this.start();
         }
-
         Object.defineProperty(Enemy.prototype, "timeToFire", {
             // PUBLIC PROPERTIES
             get: function () {
