@@ -52,9 +52,9 @@ module levels {
          * Entry point of the level
          */
         public initializeLevel():void {
-
             if (core.themeSound.playState != "playSucceeded")
                 core.themeSound.play();
+            core.levelStartingScore = 0;
 
             // ocean object
             this._space = new objects.Space("space");

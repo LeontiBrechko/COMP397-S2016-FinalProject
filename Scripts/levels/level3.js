@@ -44,6 +44,7 @@ var levels;
         Level3.prototype.initializeLevel = function () {
             if (core.themeSound.playState != "playSucceeded")
                 core.themeSound.play();
+            core.levelStartingScore = core.score;
             core.levelStartingLives = core.currentLives;
             core.levelStartingBullets = core.bulletsCollected;
             this._timeToGo = createjs.Ticker.getTime() + 5000;

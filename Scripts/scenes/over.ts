@@ -119,8 +119,8 @@ module scenes {
 
         private _restartLevelButtonClick(event: createjs.MouseEvent): void {
             let currentLevel = core.play.levelNumber;
+            core.score = core.levelStartingScore;
             if (currentLevel == config.Level.LEVEL_1) {
-                core.score = 0;
                 core.currentLives = core.gameStartingLives;
             } else if (currentLevel == config.Level.LEVEL_2) {
                 core.bulletsCollected = 0;

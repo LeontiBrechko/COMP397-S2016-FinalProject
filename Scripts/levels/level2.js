@@ -44,6 +44,7 @@ var levels;
         };
         Level2.prototype.initializeLevel = function () {
             this._levelTotalTime = 15000;
+            core.levelStartingScore = core.score;
             core.levelStartingLives = core.currentLives;
             core.fuelLevel = 5;
             if (core.themeSound.playState != "playSucceeded")

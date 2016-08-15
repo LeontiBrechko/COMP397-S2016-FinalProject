@@ -24,6 +24,7 @@ namespace core {
 
     // score, gameStartingLives and currentLives variables
     export let score:number = 0;
+    export let levelStartingScore:number;
     export let gameStartingLives:number = 5;
     export let levelStartingLives:number;
     export let robotStartingLives:number = 10;

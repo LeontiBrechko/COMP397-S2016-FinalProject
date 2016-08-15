@@ -83,8 +83,8 @@ var scenes;
         };
         Over.prototype._restartLevelButtonClick = function (event) {
             var currentLevel = core.play.levelNumber;
+            core.score = core.levelStartingScore;
             if (currentLevel == config.Level.LEVEL_1) {
-                core.score = 0;
                 core.currentLives = core.gameStartingLives;
             }
             else if (currentLevel == config.Level.LEVEL_2) {

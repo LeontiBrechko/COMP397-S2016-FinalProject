@@ -47,6 +47,7 @@ var levels;
         Level1.prototype.initializeLevel = function () {
             if (core.themeSound.playState != "playSucceeded")
                 core.themeSound.play();
+            core.levelStartingScore = 0;
             // ocean object
             this._space = new objects.Space("space");
             this.addChild(this._space);
