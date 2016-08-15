@@ -1,11 +1,12 @@
 /**
+ * @filename: instructions.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 8, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.2 - Version includes level 1 and 2
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -29,13 +30,13 @@ var scenes;
         Instructions.prototype.start = function () {
             var gameInstructions = [];
             var instructionsArray = [
-                "You are a Zombie, infecting planets.",
-                "Fly over the planet and infect it",
-                "but be careful not to fly",
-                "too close to the charged clouds. Your jetpack",
-                "will be destroyed if cloud charge gets into it",
-                "too many times. Steer with the mouse.",
-                "May the dexterity be with you!"
+                "LEVEL 1: INFECT AS MANY PLANETS AS YOU CAN",
+                "FLYING OVER THEM AND AVOIDING CHARGED CLOUDS",
+                "",
+                "LEVEL 2: WATCH FOR FUEL LEVEL AND",
+                "DODGE BULLETS. COLLECT ORANGE GUN BOXES",
+                "",
+                "LEVEL 3: FINISH OFF THE ROBOT, SHOOT BY CLICKING",
             ];
             this._space = new objects.Space("space");
             this.addChild(this._space);
@@ -43,7 +44,7 @@ var scenes;
                 gameInstructions[line] = new createjs.Text(instructionsArray[line], "BroadwayFont");
                 gameInstructions[line].x = 10;
                 gameInstructions[line].y = 20 + (2 * line);
-                this.addChild(new objects.Label(instructionsArray[line], "22px", "BroadwayFont", "#7200ff", 300, 40 * line + 40, true));
+                this.addChild(new objects.Label(instructionsArray[line], "22px", "BroadwayFont", "#7200ff", 320, 40 * line + 40, true));
             }
             // Add Menu Label
             this.addChild(this._instructionsLabel);

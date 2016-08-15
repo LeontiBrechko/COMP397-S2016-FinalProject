@@ -1,11 +1,12 @@
 /**
+ * @filename: level2.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 8, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.2 - Version includes level 1 and 2
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -26,7 +27,14 @@ var levels;
         function Level2() {
             _super.call(this);
         }
+        /**
+         * This method updates Score board
+         *
+         * @private
+         */
         Level2.prototype._updateScoreBoard = function () {
+            for (var i = 0; i < this._liveIcons.length; i++)
+                this._liveIcons[i].visible = true;
             for (var i = core.gameStartingLives - 1; i > Math.max(0, core.currentLives - 1); i--) {
                 this._liveIcons[i].visible = false;
             }
@@ -97,10 +105,6 @@ var levels;
             this._playerIcon.x = 10;
             this._playerIcon.y = 455;
             this.addChild(this._playerIcon);
-            // add stub next level button
-            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 430, true);
-            this._stubNextLevelButton.on("click", this._nextLevel, this);
-            this.addChild(this._stubNextLevelButton);
             // add this scene to the global scene container
             core.stage.addChild(this);
             this._levelStartTime = createjs.Ticker.getTime();
@@ -169,23 +173,10 @@ var levels;
                         * (620 - this._playerIcon.getBounds().width);
             }
             else {
-                console.log("level 2 is done");
                 createjs.Sound.stop();
                 core.play.levelNumber++;
                 core.play.ChangeLevel();
             }
-        };
-        // EVENT HANDLERS ++++++++++++++++
-        /**
-         * Simulates next level continuation
-         *
-         * @param event
-         * @private
-         */
-        Level2.prototype._nextLevel = function (event) {
-            createjs.Sound.stop();
-            core.play.levelNumber++;
-            core.play.ChangeLevel();
         };
         return Level2;
     }(objects.Level));

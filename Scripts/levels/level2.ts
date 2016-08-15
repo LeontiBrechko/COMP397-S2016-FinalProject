@@ -1,11 +1,12 @@
 /**
+ * @filename: level2.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 8, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.2 - Version includes level 1 and 2
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 
 module levels {
@@ -32,14 +33,20 @@ module levels {
         private _playerIcon:createjs.Bitmap;
         private _levelTotalTime:number;
         private _levelStartTime:number;
-        //stub button
-        private _stubNextLevelButton:objects.Button;
 
         constructor() {
             super();
         }
 
+        /**
+         * This method updates Score board
+         * 
+         * @private
+         */
         private _updateScoreBoard() {
+            for (let i = 0; i < this._liveIcons.length; i++)
+                this._liveIcons[i].visible = true;
+                
             for (let i = core.gameStartingLives - 1; i > Math.max(0, core.currentLives - 1); i--) {
                 this._liveIcons[i].visible = false;
             }
@@ -129,11 +136,6 @@ module levels {
             this._playerIcon.y = 455;
             this.addChild(this._playerIcon);
 
-            // add stub next level button
-            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 430, true);
-            this._stubNextLevelButton.on("click", this._nextLevel, this);
-            this.addChild(this._stubNextLevelButton);
-
             // add this scene to the global scene container
             core.stage.addChild(this);
 
@@ -212,7 +214,6 @@ module levels {
                     (createjs.Ticker.getTime() - this._levelStartTime) / this._levelTotalTime
                     * (620 - this._playerIcon.getBounds().width);
             } else {
-                console.log("level 2 is done");
                 createjs.Sound.stop();
                 core.play.levelNumber++;
                 core.play.ChangeLevel();
@@ -220,16 +221,5 @@ module levels {
         }
 
         // EVENT HANDLERS ++++++++++++++++
-        /**
-         * Simulates next level continuation
-         *
-         * @param event
-         * @private
-         */
-        private _nextLevel(event:createjs.MouseEvent):void {
-            createjs.Sound.stop();
-            core.play.levelNumber++;
-            core.play.ChangeLevel();
-        }
     }
 }
