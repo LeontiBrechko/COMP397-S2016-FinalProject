@@ -75,7 +75,7 @@ var scenes;
             // Switch the scene
             core.currentLives = core.gameStartingLives;
             core.score = 0;
-            core.bulletsCollected = 0;
+            core.bulletsCollected = core.currentGunBullets = 0;
             core.robotCurrentLives = core.robotStartingLives;
             core.scene = config.Scene.PLAY;
             core.wonGame = false;
