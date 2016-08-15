@@ -1,12 +1,14 @@
 /**
+ * @filename: gameObject.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
+
 module objects {
     /**
      * This class represents a generic Game Object used in the game
@@ -22,6 +24,9 @@ module objects {
         private _name:string;
         private _position:Vector2;
         private _isColliding:boolean;
+        private _dx:number;
+        private _dy:number;
+        private _isActive:boolean;
         public sound:createjs.AbstractSoundInstance;
 
         // PUBLIC PROPERTIES +++++++++++++++++++++++++++++++++++++++
@@ -74,6 +79,30 @@ module objects {
             this._isColliding = newState;
         }
 
+        get dy():number {
+            return this._dy;
+        }
+
+        set dy(newDy:number) {
+            this._dy = newDy;
+        }
+
+        get dx():number {
+            return this._dx;
+        }
+
+        set dx(newDx:number) {
+            this._dx = newDx;
+        }
+
+        get isActive():boolean {
+            return this._isActive;
+        }
+
+        set isActive(newStatus:boolean) {
+            this._isActive = newStatus;
+        }
+
         // CONSTRUCTORS +++++++++++++++++++++++++++++++++++++++++++
         /**
          * Creates an instance of the GameObject.
@@ -86,7 +115,7 @@ module objects {
 
             this._initialize(imageString);
 
-            this.start();
+            // this.start();
         }
 
         private _initialize(imageString:string):void {
@@ -97,6 +126,7 @@ module objects {
             this.regY = this.halfHeight;
             this.position = new Vector2(this.x, this.y);
             this.isColliding = false;
+            this.isActive = true;
         }
 
         /**
@@ -107,9 +137,7 @@ module objects {
          * @method start
          * @returns {void}
          */
-        public start():void {
-
-        }
+        public abstract start():void;
 
         /**
          * This method updates the object's properties
@@ -119,11 +147,9 @@ module objects {
          * @method update
          * @returns {void}
          */
-        public update():void {
+        public abstract update():void;
 
-
-        }
-
+        public abstract reset():void;
 
     }
 }

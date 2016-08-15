@@ -1,11 +1,12 @@
 /**
+ * @filename: collision.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 1, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.1 - Initial version of Flying Dead
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 
 module managers {
@@ -38,23 +39,39 @@ module managers {
         public check(object1:objects.GameObject, object2:objects.GameObject) {
             if (objects.Vector2.distance(object1.position, object2.position)
                 <= (object1.halfHeight + object2.halfHeight)) {
-                // if chargedCloud collides with another one
-                if (object1.name === "chargedCloud" && object2.name === "chargedCloud") {
-                    let tempDx = (<objects.ChargedCloud> object1).dx;
-                    let tempDy = (<objects.ChargedCloud> object1).dy;
-                    (<objects.ChargedCloud> object1).dx = (<objects.ChargedCloud> object2).dx;
-                    (<objects.ChargedCloud> object1).dy = (<objects.ChargedCloud> object2).dy;
-                    (<objects.ChargedCloud> object2).dx = tempDx;
-                    (<objects.ChargedCloud> object2).dy = tempDy;
+                if (object1.name !== "zombie" && object1.name !== "shootingZombie" && object1.name !== "robot") {
+                    // if first object is not a player
+                    let tempDx = object1.dx;
+                    let tempDy = object1.dy;
+                    object1.dx = object2.dx;
+                    object1.dy = object2.dy;
+                    object2.dx = tempDx;
+                    object2.dy = tempDy;
                     object1.update();
                     object2.update();
                     if (objects.Vector2.distance(object1.position, object2.position)
                         < (object1.halfHeight + object2.halfHeight)) {
-                        if (object1.x > object2.x) object1.x += (object2.width - (object1.x - object2.x) + 1);
-                        else object2.x += (object1.width - (object2.x - object1.x) + 1);
+                        if (object1.x > object2.x)
+                            object1.x += (object2.width - (object1.x - object2.x) + 1);
+                        else
+                            object2.x += (object1.width - (object2.x - object1.x) + 1);
                     }
-                    // if first object is player
-                } else if (object1.name === "zombie") {
+
+                } else if (object1.name === "robot") {
+                    // if first object is robot
+                    if (!object2.isColliding) {
+                        object2.isColliding = true;
+
+                        // if robot collides with player bullet
+                        if (object2.name === "playerBullet") {
+                            object2.reset();
+                            core.robotCurrentLives--;
+                            core.score+=50;
+                            createjs.Sound.play("explosion");
+                        }
+                    }
+                } else {
+                    // if first object is a player
                     if (!object2.isColliding) {
                         object2.isColliding = true;
 
@@ -64,16 +81,45 @@ module managers {
                             createjs.Sound.play("explosion");
                         }
 
+                        if (object2.name === "fuelBox") {
+                            if (core.fuelLevel < 5)
+                                core.fuelLevel++;
+                                core.score+=50;
+                            (<objects.PickableItem>object2).reset();
+                            createjs.Sound.play("fuelPick");
+                        }
+
+                        if (object2.name === "gunBox") {
+                            core.currentGunBullets += 5;
+                            core.bulletsCollected += 5;
+                            (<objects.PickableItem>object2).reset();
+                            createjs.Sound.play("gunPick");
+                        }
+
                         // if zombie collides with island
                         if (object2.name === "planet") {
-                            // TO-DO: change to asset load
-                            (<HTMLImageElement> object2.image).src = "Assets/images/infectedPlanet.png";
+                            object2.image = <HTMLImageElement> core.assets.getResult("infectedPlanet");
                             core.score += 100;
                             createjs.Sound.play("baaaa");
                         }
+
+                        // if zombie collides with bullet
+                        if (object2.name === "bullet") {
+                            core.currentLives -= 1;
+                            object2.reset();
+                            createjs.Sound.play("laserHit");
+                        }
+
+                        // if zombie collides with live box
+                        if (object2.name === "liveBox") {
+                            if (core.currentLives < 5)
+                                core.currentLives += 1;
+                            object2.reset();
+                            createjs.Sound.play("gotLive");
+                        }
                     }
                 }
-            } else if (object1.name === "zombie") {
+            } else if (object1.name === "zombie" || object1.name === "shootingZombie" || object1.name === "robot") {
                 object2.isColliding = false;
             }
         }

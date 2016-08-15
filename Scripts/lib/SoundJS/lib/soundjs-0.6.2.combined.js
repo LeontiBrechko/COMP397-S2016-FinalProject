@@ -7562,7 +7562,7 @@ this.createjs = this.createjs || {};
 			try {
 				tag.currentTime = this._startTime;
 			} catch (e) {
-			} // Reset Position
+			} // reset Position
 			createjs.HTMLAudioTagPool.set(this.src, tag);
 			this._playbackResource = null;
 		}

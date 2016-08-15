@@ -3203,7 +3203,7 @@ this.createjs = this.createjs||{};
 		}
 		if(prop != "guide"){ return endValue; }
 
-		// guide only information - Start -
+		// guide only information - start -
 		var temp, data = endValue;
 		if(!data.hasOwnProperty("path")){ data.path = []; }
 		var path = data.path;
