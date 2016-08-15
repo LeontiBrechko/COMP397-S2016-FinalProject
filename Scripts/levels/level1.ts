@@ -1,17 +1,18 @@
 /**
+ * @filename: level1.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 8, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.2 - Version includes level 1 and 2
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 
 module levels {
     /**
      * This is the Level1 class for the level with ChargedClouds
-     * 
+     *
      * @export
      * @class Level1
      * @extends {createjs.Bitmap}
@@ -25,22 +26,33 @@ module levels {
         private _collision:managers.Collision;
         private _scoreLabel:objects.Label;
         private _liveIcons:createjs.Bitmap[];
-        
-        //stub button
-        private _stubNextLevelButton:objects.Button;
 
         constructor() {
             super();
+
+            window.addEventListener("keydown", this._keyPressedEvent);
         }
 
+        /**
+         * This method updates score board of the level
+         *
+         * @private
+         */
         private _updateScoreBoard() {
+            for (let i = 0; i < this._liveIcons.length; i++)
+                this._liveIcons[i].visible = true;
+
             for (let i = core.gameStartingLives - 1; i > Math.max(core.currentLives - 1, 0); i--) {
                 this._liveIcons[i].visible = false;
             }
             this._scoreLabel.text = "Score: " + core.score;
         }
 
+        /**
+         * Entry point of the level
+         */
         public initializeLevel():void {
+
             if (core.themeSound.playState != "playSucceeded")
                 core.themeSound.play();
 
@@ -80,15 +92,13 @@ module levels {
             this._scoreLabel.textAlign = "center";
             this.addChild(this._scoreLabel);
 
-            // add stub next level button
-            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 430, true);
-            this._stubNextLevelButton.on("click", this._nextLevel, this);
-            this.addChild(this._stubNextLevelButton);
-
             // add this scene to the global scene container
             core.stage.addChild(this);
         }
 
+        /**
+         * This method update level
+         */
         public updateLevel():void {
             this._space.update();
             this._player.update();
@@ -128,7 +138,7 @@ module levels {
                         cloud.isActive = false;
                     }
                 });
-                
+
                 if (!this._planet.isActive
                     && this._chargedClouds.filter(cloud => cloud.isActive).length === 0
                     && this._space.x == 0) {
@@ -148,16 +158,50 @@ module levels {
         }
 
         // EVENT HANDLERS ++++++++++++++++
+
         /**
-         * Simulates next level continuation
+         * This event handler handle all the cheats combinations
          *
-         * @param event
          * @private
+         * @param {KeyboardEvent} event
          */
-        private _nextLevel(event:createjs.MouseEvent):void {
-            createjs.Sound.stop();
-            core.play.levelNumber++;
-            core.play.ChangeLevel();
+        private _keyPressedEvent(event:KeyboardEvent):void {
+            if (event.altKey) {
+
+                switch (event.keyCode) {
+                    case 49:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 0;
+                        core.play.ChangeLevel();
+                        break;
+                    case 50:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 1;
+                        core.play.ChangeLevel();
+                        break;
+                    case 51:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 2;
+                        core.play.ChangeLevel();
+                        break;
+                }
+
+            }
+            else if (event.ctrlKey) {
+                switch (event.keyCode) {
+                    case 65:
+                        createjs.Sound.play("cheat");
+                        console.log(event.keyCode);
+                        core.currentLives = 5;
+                        break;
+                    case 66:
+                        createjs.Sound.play("cheat");
+                        console.log(event.keyCode);
+                        if (core.robotCurrentLives > 0)
+                            core.robotCurrentLives--;
+                        break;
+                }
+            }
         }
     }
 }

@@ -1,11 +1,12 @@
 /**
+ * @filename: collision.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 8, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.2 - Version includes level 1 and 2
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 
 module managers {
@@ -65,6 +66,7 @@ module managers {
                         if (object2.name === "playerBullet") {
                             object2.reset();
                             core.robotCurrentLives--;
+                            core.score+=50;
                             createjs.Sound.play("explosion");
                         }
                     }
@@ -82,6 +84,7 @@ module managers {
                         if (object2.name === "fuelBox") {
                             if (core.fuelLevel < 5)
                                 core.fuelLevel++;
+                                core.score+=50;
                             (<objects.PickableItem>object2).reset();
                             createjs.Sound.play("fuelPick");
                         }

@@ -1,11 +1,12 @@
 /**
+ * @filename: game.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 8, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.2 - Version includes level 1 and 2
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 var core;
@@ -39,12 +40,13 @@ var core;
         { id: "restartLevelButton", src: "Assets/images/restartLevelButton.png" },
         { id: "exitButton", src: "Assets/images/exitButton.png" },
         { id: "returnButton", src: "Assets/images/returnButton.png" },
+        { id: "returnToMenuButton", src: "Assets/images/returnToMenuButton.png" },
         // main object images
         { id: "space", src: "Assets/images/space.png" },
         { id: "planet", src: "Assets/images/planet.png" },
         { id: "infectedPlanet", src: "Assets/images/infectedPlanet.png" },
         { id: "zombie", src: "Assets/images/zombie.png" },
-        {id: "shootingZombie", src: "Assets/images/shootingZombie.png"},
+        { id: "shootingZombie", src: "Assets/images/shootingZombie.png" },
         { id: "zombieIcon", src: "Assets/images/zombieIcon.png" },
         { id: "chargedCloud", src: "Assets/images/chargedCloud.png" },
         { id: "fuelBox", src: "Assets/images/fuel.png" },
@@ -53,9 +55,9 @@ var core;
         { id: "live", src: "Assets/images/live.png" },
         { id: "spaceman", src: "Assets/images/spaceman.png" },
         { id: "bullet", src: "Assets/images/bullet.png" },
-        {id: "playerBullet", src: "Assets/images/playerBullet.png"},
+        { id: "playerBullet", src: "Assets/images/playerBullet.png" },
         { id: "robot", src: "Assets/images/robot.png" },
-        {id: "robotLive", src: "Assets/images/robotLive.png"},
+        { id: "robotLive", src: "Assets/images/robotLive.png" },
         { id: "levelProgress", src: "Assets/images/levelProgress.png" },
         // sounds
         { id: "baaaa", src: "Assets/audio/baaaa.wav" },
@@ -66,12 +68,10 @@ var core;
         { id: "gunPick", src: "Assets/audio/gunPick.wav" },
         { id: "laserHit", src: "Assets/audio/laserHit.wav" },
         { id: "taDaFinal", src: "Assets/audio/taDaFinal.wav" },
-        { id: "pew", src: "Assets/audio/pew.wav" },
-        {id: "gotLive", src: "Assets/audio/gotLive.mp3"},
-        {id: "taDaFinal", src: "Assets/audio/taDaFinal.wav"},
-        // stub
-        { id: "gameOverStub", src: "Assets/images/gameOverStub.png" },
-        { id: "nextLevelStub", src: "Assets/images/nextLevelStub.png" }
+        { id: "pew", src: "Assets/audio/laserShoot.wav" },
+        { id: "gotLive", src: "Assets/audio/gotLive.mp3" },
+        { id: "taDaFinal", src: "Assets/audio/taDaFinal.wav" },
+        { id: "cheat", src: "Assets/audio/cheat.wav" }
     ];
     /**
      * This method preloads assets for the game

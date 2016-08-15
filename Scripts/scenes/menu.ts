@@ -1,11 +1,12 @@
 /**
+ * @filename: menu.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 8, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.2 - Version includes level 1 and 2
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 
 module scenes {
@@ -28,13 +29,21 @@ module scenes {
          *
          */
         public start(): void {
+            //reset score values
+            core.score = 0;
+            core.currentLives = core.gameStartingLives;
+            core.robotCurrentLives = core.robotStartingLives;
+            core.fuelLevel = 5;
+            core.bulletsCollected = 0;
+            core.currentGunBullets = 0;
+
             this._space = new objects.Space("space");
             this.addChild(this._space);
 
             // Add Menu Label
             this._menuLabel = new objects.Label(
                 "FLYING DEAD", "80px", "BroadwayFont", "#7200ff",
-                320, 140, true
+                310, 140, true
             );
             this.addChild(this._menuLabel);
 

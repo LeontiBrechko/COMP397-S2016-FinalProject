@@ -1,11 +1,12 @@
 /**
+ * @filename: level1.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 8, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.2 - Version includes level 1 and 2
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -25,13 +26,24 @@ var levels;
         __extends(Level1, _super);
         function Level1() {
             _super.call(this);
+            window.addEventListener("keydown", this._keyPressedEvent);
         }
+        /**
+         * This method updates score board of the level
+         *
+         * @private
+         */
         Level1.prototype._updateScoreBoard = function () {
+            for (var i = 0; i < this._liveIcons.length; i++)
+                this._liveIcons[i].visible = true;
             for (var i = core.gameStartingLives - 1; i > Math.max(core.currentLives - 1, 0); i--) {
                 this._liveIcons[i].visible = false;
             }
             this._scoreLabel.text = "Score: " + core.score;
         };
+        /**
+         * Entry point of the level
+         */
         Level1.prototype.initializeLevel = function () {
             if (core.themeSound.playState != "playSucceeded")
                 core.themeSound.play();
@@ -64,13 +76,12 @@ var levels;
             this._scoreLabel = new objects.Label("Score: " + core.score, "40px", "BroadwayFont", "#7200ff", 450, 5, false);
             this._scoreLabel.textAlign = "center";
             this.addChild(this._scoreLabel);
-            // add stub next level button
-            this._stubNextLevelButton = new objects.Button("nextLevelStub", 320, 430, true);
-            this._stubNextLevelButton.on("click", this._nextLevel, this);
-            this.addChild(this._stubNextLevelButton);
             // add this scene to the global scene container
             core.stage.addChild(this);
         };
+        /**
+         * This method update level
+         */
         Level1.prototype.updateLevel = function () {
             var _this = this;
             this._space.update();
@@ -129,15 +140,46 @@ var levels;
         };
         // EVENT HANDLERS ++++++++++++++++
         /**
-         * Simulates next level continuation
+         * This event handler handle all the cheats combinations
          *
-         * @param event
          * @private
+         * @param {KeyboardEvent} event
          */
-        Level1.prototype._nextLevel = function (event) {
-            createjs.Sound.stop();
-            core.play.levelNumber++;
-            core.play.ChangeLevel();
+        Level1.prototype._keyPressedEvent = function (event) {
+            if (event.altKey) {
+                switch (event.keyCode) {
+                    case 49:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 0;
+                        core.play.ChangeLevel();
+                        break;
+                    case 50:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 1;
+                        core.play.ChangeLevel();
+                        break;
+                    case 51:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 2;
+                        core.play.ChangeLevel();
+                        break;
+                }
+            }
+            else if (event.ctrlKey) {
+                switch (event.keyCode) {
+                    case 65:
+                        createjs.Sound.play("cheat");
+                        console.log(event.keyCode);
+                        core.currentLives = 5;
+                        break;
+                    case 66:
+                        createjs.Sound.play("cheat");
+                        console.log(event.keyCode);
+                        if (core.robotCurrentLives > 0)
+                            core.robotCurrentLives--;
+                        break;
+                }
+            }
         };
         return Level1;
     }(objects.Level));

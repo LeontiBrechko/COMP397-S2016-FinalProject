@@ -1,23 +1,24 @@
 /**
+ * @filename: play.ts
  * @author Anton Bogun
  * @author Liavontsi Brechka
  * @studentID 300863440
  * @studentID 300800345
- * @date August 8, 2016
+ * @date August 15, 2016
  * @description COMP397 - Web Game Programming - Final Project - The JavaScript Arcade Game
- * @version 0.2 - Version includes level 1 and 2
+ * @version 0.3 - Version includes levels 1, 2, and 3
  */
 module scenes {
     export class Play extends objects.Scene {
         //  PRIVATE INSTANCE VARIABLES
-        private _currentLevel:objects.Level;
+        private _currentLevel: objects.Level;
         private _levelNumber: number;
 
-        get levelNumber():number {
+        get levelNumber(): number {
             return this._levelNumber;
         }
 
-        set levelNumber(newLevel:number) {
+        set levelNumber(newLevel: number) {
             this._levelNumber = newLevel;
         }
 
@@ -25,7 +26,7 @@ module scenes {
             super();
         }
 
-        public start():void {
+        public start(): void {
             // start with the first level
             this._levelNumber = config.Level.LEVEL_1;
             if (this._currentLevel != null)
@@ -33,11 +34,11 @@ module scenes {
             this._currentLevel = new levels.Level1();
         }
 
-        public update():void {
+        public update(): void {
             this._currentLevel.updateLevel();
         }
 
-        public ChangeLevel():void {
+        public ChangeLevel(): void {
             //Launch Various Levels
             switch (this._levelNumber) {
                 // Show LEVEL 1
