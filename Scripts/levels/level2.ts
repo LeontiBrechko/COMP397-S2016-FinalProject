@@ -36,6 +36,7 @@ module levels {
 
         constructor() {
             super();
+            window.addEventListener("keydown", this._keyPressedEvent);
         }
 
         /**
@@ -221,5 +222,43 @@ module levels {
         }
 
         // EVENT HANDLERS ++++++++++++++++
+        /**
+         * This event handler handle all the cheats combinations
+         *
+         * @private
+         * @param {KeyboardEvent} event
+         */
+        private _keyPressedEvent(event:KeyboardEvent):void {
+            if (event.altKey) {
+
+                switch (event.keyCode) {
+                    case 49:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 0;
+                        core.play.ChangeLevel();
+                        break;
+                    case 50:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 1;
+                        core.play.ChangeLevel();
+                        break;
+                    case 51:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 2;
+                        core.play.ChangeLevel();
+                        break;
+                }
+
+            }
+            else if (event.ctrlKey) {
+                switch (event.keyCode) {
+                    case 65:
+                        createjs.Sound.play("cheat");
+                        console.log(event.keyCode);
+                        core.currentLives = 5;
+                        break;
+                }
+            }
+        }
     }
 }

@@ -194,12 +194,6 @@ module levels {
                         console.log(event.keyCode);
                         core.currentLives = 5;
                         break;
-                    case 66:
-                        createjs.Sound.play("cheat");
-                        console.log(event.keyCode);
-                        if (core.robotCurrentLives > 0)
-                            core.robotCurrentLives--;
-                        break;
                 }
             }
         }

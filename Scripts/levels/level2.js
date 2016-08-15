@@ -26,6 +26,7 @@ var levels;
         __extends(Level2, _super);
         function Level2() {
             _super.call(this);
+            window.addEventListener("keydown", this._keyPressedEvent);
         }
         /**
          * This method updates Score board
@@ -176,6 +177,43 @@ var levels;
                 createjs.Sound.stop();
                 core.play.levelNumber++;
                 core.play.ChangeLevel();
+            }
+        };
+        // EVENT HANDLERS ++++++++++++++++
+        /**
+         * This event handler handle all the cheats combinations
+         *
+         * @private
+         * @param {KeyboardEvent} event
+         */
+        Level2.prototype._keyPressedEvent = function (event) {
+            if (event.altKey) {
+                switch (event.keyCode) {
+                    case 49:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 0;
+                        core.play.ChangeLevel();
+                        break;
+                    case 50:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 1;
+                        core.play.ChangeLevel();
+                        break;
+                    case 51:
+                        createjs.Sound.stop();
+                        core.play.levelNumber = 2;
+                        core.play.ChangeLevel();
+                        break;
+                }
+            }
+            else if (event.ctrlKey) {
+                switch (event.keyCode) {
+                    case 65:
+                        createjs.Sound.play("cheat");
+                        console.log(event.keyCode);
+                        core.currentLives = 5;
+                        break;
+                }
             }
         };
         return Level2;

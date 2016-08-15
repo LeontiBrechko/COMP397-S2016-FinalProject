@@ -68,19 +68,10 @@ var core;
         { id: "gunPick", src: "Assets/audio/gunPick.wav" },
         { id: "laserHit", src: "Assets/audio/laserHit.wav" },
         { id: "taDaFinal", src: "Assets/audio/taDaFinal.wav" },
-<<<<<<< HEAD
-        { id: "pew", src: "Assets/audio/pew.wav" },
-        { id: "gotLive", src: "Assets/audio/gotLive.mp3" },
-        { id: "taDaFinal", src: "Assets/audio/taDaFinal.wav" },
-        // stub
-        { id: "gameOverStub", src: "Assets/images/gameOverStub.png" },
-        { id: "nextLevelStub", src: "Assets/images/nextLevelStub.png" }
-=======
         { id: "pew", src: "Assets/audio/laserShoot.wav" },
         { id: "gotLive", src: "Assets/audio/gotLive.mp3" },
         { id: "taDaFinal", src: "Assets/audio/taDaFinal.wav" },
         { id: "cheat", src: "Assets/audio/cheat.wav" }
->>>>>>> antonybogun-part3
     ];
     /**
      * This method preloads assets for the game
