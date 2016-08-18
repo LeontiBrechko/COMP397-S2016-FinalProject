@@ -61,7 +61,7 @@ module scenes {
                 "exitButton", 320, 440, true
             );
             this.addChild(this._exitButton);
-
+            
             // Exit button event listener
             this._exitButton.on("click", this._exitButtonClick, this);
 

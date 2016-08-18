@@ -57,13 +57,13 @@ var levels;
             this.addChild(this._player);
             // fuel box array
             this._fuelBoxes = new Array();
-            for (var i = 0; i < 2; i++) {
+            for (var i = 0; i < 1; i++) {
                 this._fuelBoxes.push(new objects.PickableItem("fuelBox"));
                 this.addChild(this._fuelBoxes[i]);
             }
             // gun box array
             this._gunBoxes = new Array();
-            for (var i = 0; i < 2; i++) {
+            for (var i = 0; i < 1; i++) {
                 this._gunBoxes.push(new objects.PickableItem("gunBox"));
                 this.addChild(this._gunBoxes[i]);
             }
@@ -86,7 +86,7 @@ var levels;
             this._fuelLevelLabel.textAlign = "right";
             this.addChild(this._fuelLevelLabel);
             this._bulletLabel =
-                new objects.Label("Bullets: " + core.currentGunBullets, "40px", "BroadwayFont", "#7200ff", 620, 35, false);
+                new objects.Label("Bullets: " + core.currentGunBullets, "40px", "BroadwayFont", "#7200ff", 620, 55, false);
             this._bulletLabel.textAlign = "right";
             this.addChild(this._bulletLabel);
             // lives array
@@ -165,7 +165,7 @@ var levels;
                 core.changeScene();
             }
             // updating fuel level
-            if (createjs.Ticker.getTime() % core.gameSpeed <= 19) {
+            if (createjs.Ticker.getTime() % (core.gameSpeed * 1.2) <= 19) {
                 if (core.fuelLevel > 0)
                     core.fuelLevel--;
             }

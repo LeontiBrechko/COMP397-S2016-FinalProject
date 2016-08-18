@@ -84,7 +84,7 @@ module objects {
             // get a random y location
             this.y = Math.floor((Math.random() * (480 - (this.width * 0.5))) + (this.width * 0.5));
 
-            this.x = 640 + this.width;
+             this.x = 640 + this.width + 1000;
         }
         /**
          * This method updates the object's properties
